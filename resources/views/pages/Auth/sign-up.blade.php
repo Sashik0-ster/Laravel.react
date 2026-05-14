@@ -80,8 +80,8 @@
                     </div>
                 </div>
 
-                <div class="flex items-center justify-center">
-                    <x-forms.auth.submit-button type="submit">
+                <div class="flex items-center justify-center  ">
+                    <x-forms.auth.submit-button class="bg-[#4FFFA4]" type="submit">
                         Create account
                     </x-forms.auth.submit-button>
                 </div>

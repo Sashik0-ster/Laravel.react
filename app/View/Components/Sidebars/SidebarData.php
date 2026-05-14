@@ -10,6 +10,7 @@ trait SidebarData
     {
         $this->menuItems = [
             ['title' => 'Головна', 'route' => 'pages.dashboard', 'icon' => 'business-report-svgrepo-com.svg'],
+            ['title' => 'Рахунки', 'route' => 'pages.accounts', 'icon' => 'wallet-svgrepo-com.svg'],
             ['title' => 'Доходи', 'route' => 'pages.income', 'icon' => 'currencies-svgrepo-com.svg'],
             ['title' => 'Витрати', 'route' => 'pages.expense', 'icon' => 'wallet-svgrepo-com.svg'],
             ['title' => 'Заощадження', 'route' => 'pages.saving', 'icon' => 'profit-svgrepo-com.svg'],

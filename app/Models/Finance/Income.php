@@ -10,6 +10,7 @@ class Income extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'income_id';
 
     protected $fillable = [
         'user_id',
@@ -20,20 +21,14 @@ class Income extends Model
         'description',
         'is_recurring',
         'income_date',
-        /*'name',
-        'price',
-        'category',
-        'description',
-        'discount',*/
     ];
 
-/*    protected $casts = [
+    protected $casts = [
         'amount' => 'decimal:2',
-        'is_recurring' => 'boolean',
         'income_date' => 'date',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-    ];*/
+    ];
 
     public function user()
     {
@@ -42,16 +37,27 @@ class Income extends Model
 
     public function account()
     {
-        return $this->belongsTo(Account::class);
+        // belongsTo(Клас, 'зовнішній_ключ_в_цій_таблиці', 'ключ_в_таблиці_accounts')
+        return $this->belongsTo(Account::class, 'account_id', 'account_id');
     }
 
     public function currency()
     {
-        return $this->belongsTo(Currency::class);
+        return $this->belongsTo(Currency::class, 'currency_id', 'currency_id');
     }
 
     public function source()
     {
         return $this->belongsTo(IncomeSource::class, 'income_source_id');
     }
+
+    public function getRecurringStatusAttribute(): string
+    {
+        return match ((int)$this->is_recurring) {
+            1 => 'Регулярний',
+            2 => 'Одноразовий',
+            default => 'Невідомо',
+        };
+    }
+
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Pages\AccountController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Pages\DashboardController;
 use App\Http\Controllers\Pages\ExpenseController;
@@ -57,6 +58,7 @@ Route::middleware('auth')->group(function () {
 
     Route::name('pages.')->group(callback: function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
         Route::get('/expense', [ExpenseController::class, 'index'])->name('expense');
         Route::get('/goal', [GoalController::class, 'index'])->name('goal');
         Route::get('/income', [IncomeController::class, 'index'])->name('income');
@@ -64,7 +66,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/saving', [SavingController::class, 'index'])->name('saving');
         Route::get('/setting', [SettingController::class, 'index'])->name('setting');
     });
-    Route::post('/income.create', [IncomeController::class, 'create'])->name('income.create');
+    Route::post('/income', [IncomeController::class, 'create'])->name('income.create');
+    Route::post('/accounts', [AccountController::class, 'create'])->name('accounts.create');
+
     // Вихід (не забудьте додати метод logout у контролер)
     Route::get('/logout', [SignInController::class, 'logout'])->name('logout');
 });

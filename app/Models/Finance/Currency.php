@@ -11,9 +11,11 @@ class Currency extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'currency_id';
+
     protected $fillable = [
-        'code',
         'currency_name',
+        'code',
         'symbol',
         'is_active',
     ];
@@ -23,6 +25,20 @@ class Currency extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function getCodeColor($code): string
+    {
+        $colors = [
+            'PLN' => '#FFB347',
+            'USD' => '#4FFFA4',
+            'EUR' => '#7B8CFF',
+            'UAH' => '#7B8CFF',
+
+
+        ];
+
+            return $colors[$code] ?? 'gray';
+    }
 
     public function incomes()
     {

@@ -1,8 +1,17 @@
 <x-layouts.app>
     <div class="flex flex-col mb-4">
         <span
-            class="self-center text-xl font-semibold my-2 sm:text-2xl whitespace-nowrap dark:text-white">Доходи</span>
+            class="self-center text-xl font-semibold my-2 sm:text-2xl whitespace-nowrap dark:text-white">Рахунки</span>
+
+        {{-- Перевірка наявності повідомлення у сесії --}}
+        @if(session('success'))
+            <x-messages.success/>
+        @elseif(session('error'))
+            <x-messages.not-success/>
+        @endif
+
     </div>
+
     <div class="items-center justify-between block sm:flex">
         <div class="flex items-center mb-4 sm:mb-0">
             <form class="sm:pr-3" action="#" method="GET">
@@ -58,7 +67,7 @@
                 type="button" data-drawer-target="drawer-create-product-default"
                 data-drawer-show="drawer-create-product-default" aria-controls="drawer-create-product-default"
                 data-drawer-placement="right">
-            Новий дохід
+            Додати рахунок
         </button>
     </div>
 
@@ -68,7 +77,8 @@
      bg-white dark:bg-gray-800"
          tabindex="-1">
         <h5 id="drawer-label"
-            class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">Додати дохід</h5>
+            class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">New
+            Product</h5>
         <button type="button" data-drawer-dismiss="drawer-create-product-default"
                 aria-controls="drawer-create-product-default"
                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -84,34 +94,36 @@
         <div class="relative bg-white rounded-lg dark:bg-gray-800 min-h-screen md:min-h-0">
 
             <x-forms.auth.form
-                action="{{route('income.create')}}"
+                action="{{route('accounts.create')}}"
                 method="POST"
             >
                 <div class="relative max-h-screen pb-25">
 
                     <x-forms.auth.input-label
-                        for="amount"
+                        for="name"
                     >
-                        Сума
+                        Назва рахунку
+                    </x-forms.auth.input-label>
+                    <x-forms.auth.input-text
+                        type="text"
+                        name="name"
+                        id="name"
+                        placeholder="введіть назву рахунку"
+                    />
+                    <x-forms.auth.error-message :messages="$errors->get('name')" class="mt-2"/>
+
+                    <x-forms.auth.input-label
+                        for="balance"
+                    >
+                        Баланс
                     </x-forms.auth.input-label>
                     <x-forms.auth.input-text
                         type="number"
-                        name="amount"
-                        id="amount"
+                        name="balance"
+                        id="balance"
+                        placeholder="введіть сумму на балансі"
                     />
-                    <x-forms.auth.error-message :messages="$errors->get('amount')" class="mt-2"/>
-
-                    <div>
-                        <x-forms.auth.input-label for="accounts">Рахунок</x-forms.auth.input-label>
-                        <select name="accounts" id="accounts"
-                                class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="" selected disabled>Оберіть рахунок</option>
-                            @foreach($accounts as $account)
-                                <option value="{{ $account->account_id }}">{{ $account->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <x-forms.auth.error-message :messages="$errors->get('accounts')" class="mt-2"/>
+                    <x-forms.auth.error-message :messages="$errors->get('balance')" class="mt-2"/>
 
                     <div>
                         <x-forms.auth.input-label for="currency">Валюта</x-forms.auth.input-label>
@@ -119,60 +131,25 @@
                                 class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="" selected disabled>виберіть валюту</option>
                             @foreach($currencies as $currency)
-                                <option value="{{ $currency->currency_id }}">
-                                    {{ $currency->code }}
-                                </option>
+                                <option value="{{$currency['currency_id']}}">{{$currency['code']}}</option>
                             @endforeach
                         </select>
                     </div>
                     <x-forms.auth.error-message :messages="$errors->get('currency')" class="mt-2"/>
 
                     <div>
-                        <x-forms.auth.input-label for="income_sources">Джерело доходу</x-forms.auth.input-label>
-                        <select name="income_sources" id="income_sources"
-                                class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="" selected disabled>Оберіть джерело доходу</option>
-                            @foreach($income_sources as $income_source)
-                                <option value="{{$income_source->source_id}}">{{$income_source->name}}</option>
-                            @endforeach
+                        <x-forms.auth.input-label for="type">Спосіб зберігання грошей</x-forms.auth.input-label>
+                        <select name="type" id="type"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="" selected disabled>виберіть спосіб</option>
+                            <option value="card">Карта</option>
+                            <option value="cash">Готівка</option>
+                            <option value="crypto">Крипта</option>
                         </select>
                     </div>
-                    <x-forms.auth.error-message :messages="$errors->get('income_sources')" class="mt-2"/>
+                    <x-forms.auth.error-message :messages="$errors->get('type')" class="mt-2"/>
 
-                    <x-forms.auth.input-label
-                        for="income_date"
-                    >
-                        Дата доходу
-                    </x-forms.auth.input-label>
-                    <x-forms.auth.input-text
-                        type="date"
-                        name="income_date"
-                        id="income_date"
-                    />
 
-                    <x-forms.auth.input-label
-                        for="is_recurring"
-                    >
-                        <input type="hidden" name="is_recurring" value="2">
-                        <x-forms.auth.input-checkbox
-                            type="checkbox"
-                            name="is_recurring"
-                            id="is_recurring"
-                            value="1"
-                        />
-                        Регулярний платіж
-                    </x-forms.auth.input-label>
-
-                    <x-forms.auth.input-label
-                        for="description"
-                    >
-                        Опис
-                    </x-forms.auth.input-label>
-                    <textarea name="description" id="description" cols="30" rows="3"
-                              class="bg-gray-50 border border-gray-300 text-gray-900
-                            sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5
-                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    ></textarea>
                 </div>
 
                 <div
@@ -198,10 +175,8 @@
                 </div>
 
             </x-forms.auth.form>
-
         </div>
     </div>
-
 
     <div
         class="p-4 mt-5 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
@@ -214,15 +189,11 @@
                             <tr>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    №
+                                    Назва рахунку
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Рахунок
-                                </th>
-                                <th scope="col"
-                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Сумма доходу
+                                    Баланс
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -230,80 +201,62 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Джерело доходу
-                                </th>
-                                <th scope="col"
-                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Статус
-                                </th>
-                                <th scope="col"
-                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Опис
-                                </th>
-                                <th scope="col"
-                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Дата отримання
+                                    Вид рахунку
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                     Дата створення
                                 </th>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                                    Останні зміни
+                                </th>
                             </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
-                            @foreach($incomes as $income)
+                            @foreach($accounts as $account)
                                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                    {{-- № --}}
-                                    <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $loop->iteration }}
-                                    </td>
-
                                     {{-- Назва рахунку --}}
-                                    <td class="p-4 text-sm font-bold text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $income->account->name }}
+                                    <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                                        {{ $account->name }}
                                     </td>
 
-                                    {{-- Cумма --}}
+                                    {{-- Баланс з розділювачами тисяч --}}
                                     <td class="p-4 text-sm font-bold text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ number_format($income->amount, 2, '.', ' ') }}
+                                        {{ number_format($account->balance, 2, '.', ' ') }}
                                     </td>
 
                                     {{-- Валюта (код замість ID) --}}
                                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                         @php
 
-                                            $color = $account->currency->getCodeColor($income->currency->code);
+                                            $color = $account->currency->getCodeColor($account->currency->code);
                                         @endphp
 
                                         <span
                                             class="bg-[{{ $color }}] text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-{{ $color }} dark:text-[#312C3A]">
-                                                  {{ $income->currency->code }}
+                                                  {{ $account->currency->code }}
                                                 </span>
                                     </td>
 
-                                    {{-- Джерело доходу --}}
+                                    {{-- Вид рахунку з іконкою --}}
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{$income->source->name}}
-                                    </td>
-
-                                    {{-- Статус --}}
-                                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $income->recurring_status }}
-                                    </td>
-
-                                    {{-- Опис --}}
-                                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{$income->description}}
+                                        @switch($account->type)
+                                            @case('card') 💳 Картка @break
+                                            @case('cash') 💵 Готівка @break
+                                            @case('crypto') 🪙 Крипта @break
+                                            @default {{ $account->type }}
+                                        @endswitch
                                     </td>
 
                                     {{-- Дата створення (читабельна) --}}
                                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        {{ $income->income_date->format('d.m.Y') }}
+                                        {{ $account->created_at->format('d.m.Y') }}
                                     </td>
 
-                                    {{-- Дата отримання (відносно часу) --}}
+                                    {{-- Останні зміни (відносно часу) --}}
                                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                        {{ $income->created_at->format('d.m.Y') }}
+                                        {{ $account->updated_at->diffForHumans() }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -316,4 +269,7 @@
         </div>
     </div>
 
+
 </x-layouts.app>
+
+

@@ -9,6 +9,8 @@ class Account extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'account_id';
+
     protected $fillable = [
         'user_id',
         'name',
@@ -30,7 +32,7 @@ class Account extends Model
 
     public function currency()
     {
-        return $this->belongsTo(Currency::class);
+        return $this->belongsTo(Currency::class, 'currency_id', 'currency_id');
     }
 
     public function incomes()
@@ -42,4 +44,5 @@ class Account extends Model
     {
         return $this->hasMany(Expense::class);
     }
+
 }

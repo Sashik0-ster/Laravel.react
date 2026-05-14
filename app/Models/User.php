@@ -11,6 +11,8 @@ class User extends Authenticatable
 
     use HasFactory, Notifiable;
 
+    public mixed $accounts;
+
     /**
      * Get the attributes that should be cast.
      *
@@ -29,6 +31,10 @@ class User extends Authenticatable
             'password',
             'remember_token',
         ];
+
+    public function incomes()
+    {
+    }
 
 
     protected function casts(): array

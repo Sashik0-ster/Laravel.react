@@ -31,7 +31,7 @@
         <div class="relative bg-white rounded-lg dark:bg-gray-800 p-4 min-h-screen md:min-h-0">
             <x-forms.auth.form
                 action="{{ route('pages.saving') }}"
-                method="POST"> @csrf
+                method="GET"> @csrf
 
                 <div class="space-y-4 mb-24">
                     @php
@@ -58,33 +58,33 @@
                         <x-forms.auth.input-label for="currency">Валюта</x-forms.auth.input-label>
                         <select name="currency" id="currency"
                                 class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="USD">USD</option>
-                            <option value="PLN">PLN</option>
-                            <option value="EUR">EUR</option>
+                            @foreach($currencies as $currency)
+                                <option value="{{$currency['code']}}">{{$currency['code']}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
 
-
-                <div
-                    class="bottom-0 left-0 flex justify-center w-full pb-4 space-x-4 px-4 md:absolute bg-white dark:bg-gray-800">
-                    <x-forms.auth.submit-button type="submit"
-                                                class="text-white w-full justify-center bg-primary-700 hover:bg-primary-800 focus:ring-2 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                        Додати
-                    </x-forms.auth.submit-button>
-
-                    <button type="button"
-                            data-drawer-dismiss="drawer-create-product-default"
-                            class="inline-flex w-full justify-center text-gray-500 items-center bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">
-                        <svg aria-hidden="true" class="w-5 h-5 -ml-1 mr-1" fill="none" stroke="currentColor"
-                             viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                        Закрити
-                    </button>
-                </div>
             </x-forms.auth.form>
+
+            <div
+                class="bottom-0 left-0 flex justify-center w-full pb-4 space-x-4 px-4 md:absolute bg-white dark:bg-gray-800">
+                <x-forms.auth.submit-button type="submit"
+                                            class="text-white w-full justify-center bg-primary-700 hover:bg-primary-800 focus:ring-2 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    Додати
+                </x-forms.auth.submit-button>
+
+                <button type="button"
+                        data-drawer-dismiss="drawer-create-product-default"
+                        class="inline-flex w-full justify-center text-gray-500 items-center bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none focus:ring-primary-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600">
+                    <svg aria-hidden="true" class="w-5 h-5 -ml-1 mr-1" fill="none" stroke="currentColor"
+                         viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    Закрити
+                </button>
+            </div>
         </div>
     </div>
 
