@@ -1,0 +1,25 @@
+{
+  "$schema": "https://railpack.com/schemas/config.v1.json",
+  "php": {
+    "version": "8.4",
+    "extensions": [
+      "ctype",
+      "curl",
+      "dom",
+      "fileinfo",
+      "filter",
+      "hash",
+      "mbstring",
+      "openssl",
+      "pcre",
+      "pdo",
+      "session",
+      "tokenizer",
+      "xml",
+      "pdo_mysql"
+    ]
+  },
+  "node": {
+    "version": "22"
+  }
+}
