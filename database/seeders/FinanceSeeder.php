@@ -1,18 +1,25 @@
 <?php
-
 namespace Database\Seeders;
 
 use App\Models\Finance\Currency;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class FinanceSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Currency::factory(4)->create();
+        $currencies = [
+            ['code' => 'USD', 'currency_name' => 'US Dollar', 'symbol' => '$', 'is_active' => true],
+            ['code' => 'EUR', 'currency_name' => 'Euro', 'symbol' => '€', 'is_active' => true],
+            ['code' => 'UAH', 'currency_name' => 'Ukrainian Hryvnia', 'symbol' => '₴', 'is_active' => true],
+            ['code' => 'PLN', 'currency_name' => 'Polish Zloty', 'symbol' => 'zł', 'is_active' => true],
+        ];
+
+        foreach ($currencies as $currency) {
+            Currency::firstOrCreate(
+                ['code' => $currency['code']],
+                $currency
+            );
+        }
     }
 }
