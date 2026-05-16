@@ -1,7 +1,5 @@
 <?php
-
 namespace Database\Seeders;
-
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -10,17 +8,14 @@ class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Sashik0ster',
-            'email' => 'sashik0mmm@gmail.com',
-            'password' => '111111111',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'sashik0mmm@gmail.com'],
+            [
+                'name' => 'Sashik0ster',
+                'password' => bcrypt('111111111'),
+            ]
+        );
     }
 }
