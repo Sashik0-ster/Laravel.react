@@ -27,8 +27,8 @@ class IncomeController extends Controller
     public function create(IncomeRequest $request)
     {
 
-        //dd($request->all());
-
+        dd($request->all());
+//
         $data = $request->validated();
         $isRecurring = $request->boolean('is_recurring') ? 1 : 2;
 

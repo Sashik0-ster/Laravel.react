@@ -1,7 +1,8 @@
 import './style.css';
 import 'flowbite/dist/flowbite.js';
 import './dark-mode';
-import './search-mobile.js';
+// import './search-mobile.js';
+import './setting-button.js';
 
 // Have the courage to follow your heart and intuition.
 
