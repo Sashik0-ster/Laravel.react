@@ -4,6 +4,7 @@ namespace App\Http\Requests\Finances;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
 
 class IncomeRequest extends FormRequest
@@ -23,8 +24,6 @@ class IncomeRequest extends FormRequest
      */
     public function rules(): array
     {
-        /*$request = request();
-        dd($request->all());*/
 
         return [
             'amount' => ['required', 'numeric'],

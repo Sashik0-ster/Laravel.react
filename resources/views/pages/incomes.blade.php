@@ -15,7 +15,7 @@
             </form>
             <div class="flex items-center w-full sm:justify-end">
                 <div class="flex pl-2 space-x-1">
-                    <a href="#"
+                    <a href="#" id="updateButton"
                        class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg">
@@ -24,30 +24,13 @@
                                   clip-rule="evenodd"></path>
                         </svg>
                     </a>
-                    <a href="#"
+                    <a href="#" id="deleteButton"
                        class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
                                   d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                                   clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                    <a href="#"
-                       class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
-                                  clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
-                    <a href="#"
-                       class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                         </svg>
                     </a>
                 </div>
@@ -68,7 +51,8 @@
      bg-white dark:bg-gray-800"
          tabindex="-1">
         <h5 id="drawer-label"
-            class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">Додати дохід</h5>
+            class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+            Додати дохід</h5>
         <button type="button" data-drawer-dismiss="drawer-create-product-default"
                 aria-controls="drawer-create-product-default"
                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -248,27 +232,32 @@
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
                                     Дата створення
                                 </th>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white row-actions-cell-update hidden">
+                                    Редагувати
+                                </th>
+                                <th scope="col"
+                                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white row-actions-cell-delete hidden">
+                                    Видалити
+                                </th>
                             </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800">
                             @foreach($incomes as $income)
                                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                                    {{-- № --}}
+
                                     <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $loop->iteration }}
                                     </td>
 
-                                    {{-- Назва рахунку --}}
                                     <td class="p-4 text-sm font-bold text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $income->account->name }}
                                     </td>
 
-                                    {{-- Cумма --}}
                                     <td class="p-4 text-sm font-bold text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ number_format($income->amount, 2, '.', ' ') }}
                                     </td>
 
-                                    {{-- Валюта (код замість ID) --}}
                                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                         @php
 
@@ -281,39 +270,77 @@
                                                 </span>
                                     </td>
 
-                                    {{-- Джерело доходу --}}
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                         {{$income->source->name}}
                                     </td>
 
-                                    {{-- Статус --}}
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                         {{ $income->recurring_status }}
                                     </td>
 
-                                    {{-- Опис --}}
                                     <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
                                         {{$income->description}}
                                     </td>
 
-                                    {{-- Дата створення (читабельна) --}}
                                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                         {{ $income->income_date->format('d.m.Y') }}
                                     </td>
 
-                                    {{-- Дата отримання (відносно часу) --}}
                                     <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                                         {{ $income->created_at->format('d.m.Y') }}
                                     </td>
+                                    <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-update hidden"
+                                        id="rowSetting">
+                                        <button type="button" id="update-{{ $income->id }}"
+                                                data-drawer-target="drawer-update-product-default"
+                                                data-drawer-show="drawer-update-product-default"
+                                                aria-controls="drawer-update-product-default"
+                                                data-drawer-placement="right"
+                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 ">
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                                                <path fill-rule="evenodd"
+                                                      d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                                      clip-rule="evenodd"></path>
+                                            </svg>
+                                            Update
+                                        </button>
+                                    </td>
+                                    <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-delete hidden"
+                                        id="rowSetting">
+                                        <button type="button" id="delete-{{ $income->id }}"
+                                                data-drawer-target="drawer-delete-product-default"
+                                                data-drawer-show="drawer-delete-product-default"
+                                                aria-controls="drawer-delete-product-default"
+                                                data-drawer-placement="right"
+                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                      d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                      clip-rule="evenodd"></path>
+                                            </svg>
+                                            Delete item
+                                        </button>
+                                    </td>
+
                                 </tr>
                             @endforeach
                             </tbody>
+
+                            {{-- Drawer-menu --}}
+                            <x-forms.product-forms.del-item/>
+                            <x-forms.product-forms.update-item/>
+
                         </table>
 
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
 </x-layouts.app>
