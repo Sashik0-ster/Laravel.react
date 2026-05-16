@@ -13,17 +13,9 @@ class IncomeSourceSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
-
-        // Вимикаємо перевірку зовнішніх ключів
-        Schema::disableForeignKeyConstraints();
-
-        // Очищаємо таблицю
-        \App\Models\Finance\IncomeSource::truncate();
-
-        // Вмикаємо перевірку назад
-        Schema::enableForeignKeyConstraints();
-
+{
+    if (IncomeSource::count() === 0) {
         IncomeSource::factory(7)->create();
     }
+}
 }
