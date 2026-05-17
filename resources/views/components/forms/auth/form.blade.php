@@ -5,8 +5,12 @@
     method="{{ $method == 'GET' ? 'GET' : 'POST' }}"
     {{ $attributes->merge(['class' => $class]) }}
 >
-    @if($method != 'GET')
+    @if($method !== 'GET')
         @csrf
+    @endif
+
+    @if(in_array(strtoupper($method), ['PUT', 'PATCH', 'DELETE']))
+        @method($method)
     @endif
 
     {{ $slot }}

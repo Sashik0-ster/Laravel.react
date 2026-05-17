@@ -61,12 +61,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/accounts', [AccountController::class, 'index'])->name('accounts');
         Route::get('/expense', [ExpenseController::class, 'index'])->name('expense');
         Route::get('/goal', [GoalController::class, 'index'])->name('goal');
+
+        // Доходи
         Route::get('/income', [IncomeController::class, 'index'])->name('income');
 
         Route::get('/saving', [SavingController::class, 'index'])->name('saving');
         Route::get('/setting', [SettingController::class, 'index'])->name('setting');
     });
-    Route::post('/income', [IncomeController::class, 'create'])->name('income.create');
+
+    // Доходи
+    Route::post('/income', [IncomeController::class, 'store'])->name('income.create');
+    Route::put('/income/{income}', [IncomeController::class, 'update'])->name('income.update');
+    Route::delete('/income/{income}', [IncomeController::class, 'destroy'])->name('income.destroy');
+
     Route::post('/accounts', [AccountController::class, 'create'])->name('accounts.create');
 
     // Вихід (не забудьте додати метод logout у контролер)

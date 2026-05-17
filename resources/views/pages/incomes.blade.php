@@ -3,6 +3,13 @@
         <span
             class="self-center text-xl font-semibold my-2 sm:text-2xl whitespace-nowrap dark:text-white">Доходи</span>
     </div>
+
+    @if(session('success'))
+        <x-messages.success/>
+    @elseif(session('error'))
+        <x-messages.not-success/>
+    @endif
+
     <div class="items-center justify-between block sm:flex">
         <div class="flex items-center mb-4 sm:mb-0">
             <form class="sm:pr-3" action="#" method="GET">
@@ -135,9 +142,8 @@
                     />
 
                     <x-forms.auth.input-label
-                        for="is_recurring"
-                    >
-                        <input type="hidden" name="is_recurring" value="2">
+                        for="is_recurring">
+                        <input type="hidden" name="is_recurring" value="0">
                         <x-forms.auth.input-checkbox
                             type="checkbox"
                             name="is_recurring"
@@ -182,7 +188,6 @@
                 </div>
 
             </x-forms.auth.form>
-
         </div>
     </div>
 
@@ -291,31 +296,37 @@
                                     </td>
                                     <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-update hidden"
                                         id="rowSetting">
-                                        <button type="button" id="update-{{ $income->id }}"
+                                        <button type="button"
+                                                class="btn-edit-trigger inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                                 data-drawer-target="drawer-update-product-default"
                                                 data-drawer-show="drawer-update-product-default"
                                                 aria-controls="drawer-update-product-default"
                                                 data-drawer-placement="right"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 ">
-                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-                                                <path fill-rule="evenodd"
-                                                      d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                                      clip-rule="evenodd"></path>
+
+                                                {{-- Передаємо всі необхідні дані в JS --}}
+                                                data-action="{{ route('income.update', $income->income_id) }}"                                                data-amount="{{ $income->amount }}"
+                                                data-account="{{ $income->account_id }}"
+                                                data-currency="{{ $income->currency_id }}"
+                                                data-source="{{ $income->source_id ?? $income->income_source_id }}"
+                                                data-date="{{ $income->income_date }}"
+                                                data-recurring="{{ $income->is_recurring }}"
+                                                data-description="{{ $income->description }}">
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                                                <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
                                             </svg>
-                                            Update
+                                            Редагувати
                                         </button>
                                     </td>
                                     <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-delete hidden"
                                         id="rowSetting">
                                         <button type="button" id="delete-{{ $income->id }}"
+                                                data-action="/income/{{ $income->income_id }}"
                                                 data-drawer-target="drawer-delete-product-default"
                                                 data-drawer-show="drawer-delete-product-default"
                                                 aria-controls="drawer-delete-product-default"
                                                 data-drawer-placement="right"
-                                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
+                                                class="btn-delete-trigger inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900">
                                             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
                                                  xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
@@ -329,12 +340,16 @@
                                 </tr>
                             @endforeach
                             </tbody>
-
-                            {{-- Drawer-menu --}}
-                            <x-forms.product-forms.del-item/>
-                            <x-forms.product-forms.update-item/>
-
                         </table>
+
+                        {{-- Drawer-menu --}}
+                        <x-forms.product-forms.del-item/>
+
+                        <x-forms.product-forms.update-item
+                            :accounts="$accounts"
+                            :currencies="$currencies"
+                            :sources="$income_sources"
+                        />
 
                     </div>
                 </div>
