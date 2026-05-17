@@ -46,7 +46,7 @@ class IncomeRequest extends FormRequest
         return [
             'amount.required' => 'Сума обов’язкова для заповнення.',
             'income_sources.required' => 'Оберіть джерело доходу зі списку.',
-            'income_date.required' => 'Дата приходу є обов’язковою.',
+            'income_date.required' => 'Дата приходу є обов\’язковою.',
             'income_date.date' => 'Введіть коректну дату.',
             'accounts.required' => 'Оберіть Рахунок',
             'description.min' => 'Опис має містити мінімум 5 символів.',

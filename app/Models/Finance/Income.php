@@ -53,11 +53,7 @@ class Income extends Model
 
     public function getRecurringStatusAttribute(): string
     {
-        return match ((int)$this->is_recurring) {
-            1 => 'Регулярний',
-            2 => 'Одноразовий',
-            default => 'Невідомо',
-        };
+        return $this->is_recurring ? 'Регулярний' : 'Одноразовий';
     }
 
 }
