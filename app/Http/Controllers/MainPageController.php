@@ -8,6 +8,11 @@ class MainPageController extends Controller
 {
     public function index()
     {
+
+        if (auth()->check()) {
+            return view('pages.dashboard');
+        }
         return view('pages.mainpage');
+
     }
 }
