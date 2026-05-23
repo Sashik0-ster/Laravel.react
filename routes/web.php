@@ -74,6 +74,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/income/{income}', [IncomeController::class, 'update'])->name('income.update');
     Route::delete('/income/{income}', [IncomeController::class, 'destroy'])->name('income.destroy');
 
+    //Витрати
+    Route::post('/expense', [ExpenseController::class, 'store'])->name('expense.create');
+    Route::put('/expense/{expense}', [IncomeController::class, 'update'])->name('expense.update');
+    Route::delete('/expense/{expense}', [IncomeController::class, 'destroy'])->name('expense.destroy');
+
     Route::post('/accounts', [AccountController::class, 'create'])->name('accounts.create');
 
     // Вихід (не забудьте додати метод logout у контролер)

@@ -38,18 +38,23 @@ class Expense extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function category(): BelongsTo
+    public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
     public function account(): BelongsTo
     {
-        return $this->belongsTo(Account::class, 'account_id');
+        return $this->belongsTo(Account::class, 'account_id', 'account_id');
     }
 
     public function currency(): BelongsTo
     {
         return $this->belongsTo(Currency::class, 'currency_id');
+    }
+
+    public function getRecurringStatusAttribute(): string
+    {
+        return $this->is_recurring ? 'Регулярний' : 'Одноразовий';
     }
 }

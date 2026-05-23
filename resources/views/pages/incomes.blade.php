@@ -304,7 +304,8 @@
                                                 data-drawer-placement="right"
 
                                                 {{-- Передаємо всі необхідні дані в JS --}}
-                                                data-action="{{ route('income.update', $income->income_id) }}"                                                data-amount="{{ $income->amount }}"
+                                                data-action="{{ route('income.update', $income->income_id) }}"
+                                                data-amount="{{ $income->amount }}"
                                                 data-account="{{ $income->account_id }}"
                                                 data-currency="{{ $income->currency_id }}"
                                                 data-source="{{ $income->source_id ?? $income->income_source_id }}"
