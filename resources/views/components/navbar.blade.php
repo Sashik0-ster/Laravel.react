@@ -1,4 +1,4 @@
-<nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 h-[59px]">
+    <nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 h-[59px]">
     <div class="px-3 py-3 lg:px-5 lg:pl-5">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start">
@@ -29,7 +29,7 @@
 
 
                 <form action="#" method="GET" class="hidden lg:block">
-                    <label for="topbar-search" class="sr-only">Search</label>
+                    <label for="topbar-search" class="sr-only">Пошук</label>
                     <div class="relative mt-1 lg:w-96 ">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                             <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
@@ -51,7 +51,7 @@
                 <!-- Search mobile -->
                 <button id="toggleSidebarMobileSearch" type="button"
                         class="p-2 text-gray-500 rounded-lg lg:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                    <span class="sr-only">Search</span>
+                    <span class="sr-only">Пошук</span>
                     <!-- Search icon -->
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
@@ -99,37 +99,27 @@
                             id="dropdown-2">
                             <div class="px-4 py-3" role="none">
                                 <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                    Sashik0
+                                    {{ auth()->user()->name }}
                                 </p>
                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                    Sashik0@flowbite.com
+                                    {{ auth()->user()->email }}
                                 </p>
                             </div>
                             <ul class="py-1" role="none">
                                 <li>
                                     <a href="{{route('pages.dashboard')}}"
                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                       role="menuitem">Dashboard</a>
+                                       role="menuitem">Головна</a>
                                 </li>
                                 <li>
                                     <a href="{{route('pages.setting')}}"
                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                       role="menuitem">Settings</a>
+                                       role="menuitem">Налаштування</a>
                                 </li>
                                 <li>
                                     <a href="{{route('logout')}}"
                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                       role="menuitem">Sign out</a>
-                                </li>
-                                <li>
-                                    <a href="{{route('sign-up')}}"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                       role="menuitem">Sign up</a>
-                                </li>
-                                <li>
-                                    <a href="{{route('login')}}"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                       role="menuitem">Sign in</a>
+                                       role="menuitem">Вийти</a>
                                 </li>
                             </ul>
                         </div>
@@ -142,7 +132,7 @@
                                   d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
                         </svg>
                         <a href="{{route('login')}}" class="dark:text-white">
-                            Login /<a href="{{route('sign-up')}}" class="dark:text-white">Register</a>
+                            Вхід /<a href="{{route('sign-up')}}" class="dark:text-white">Реєстрація</a>
                         </a>
                     </div>
                 @endauth

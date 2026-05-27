@@ -19,10 +19,11 @@ class ExpenseController extends Controller
     public function index()
     {
         $expenses = Expense::with(['category', 'account', 'currency'])
+            ->where('user_id', auth()->id())
             ->latest()
             ->paginate(25);
         $currencies = Currency::all();
-        $accounts = Account::all();
+        $accounts = Account::where('user_id', auth()->id())->get();
         $categories = Category::all();
         $sources = IncomeSource::all();
 

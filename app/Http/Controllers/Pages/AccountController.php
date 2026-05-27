@@ -14,7 +14,7 @@ class AccountController extends Controller
     public function index()
     {
         $currencies = Currency::all();
-        $accounts = Account::all();
+        $accounts = Account::where('user_id', auth()->id())->get();
 
         return view('pages.accounts', compact('currencies', 'accounts'));
     }

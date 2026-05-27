@@ -19,10 +19,10 @@ class IncomeController extends Controller
     public function index()
     {
         $income_sources = IncomeSource::all();
-        $incomes = Income::all();
+        $incomes = Income::where('user_id', auth()->id())->get();
         Income::with(['account', 'currency', 'source'])->get();
         $currencies = Currency::all();
-        $accounts = Account::all();
+        $accounts = Account::where('user_id', auth()->id())->get();
         $categories = Category::all();
         $sources = IncomeSource::all();
 
