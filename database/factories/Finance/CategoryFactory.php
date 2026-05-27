@@ -27,7 +27,7 @@ class CategoryFactory extends Factory
 
         return [
             'user_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
-            'name'         => $this->faker->word()
+            'name'         => $this->faker->word(),
             'name_category'    => $this->faker->randomElement($expenseNames),
             'type' => $this->faker->randomElement(array_keys($types)),
         ];
