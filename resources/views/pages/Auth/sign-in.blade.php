@@ -4,7 +4,7 @@
         <!-- Card -->
         <div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                Sign in to platform
+                Вхід
             </h2>
 
             @if ($errors->any())
@@ -21,7 +21,7 @@
                 @csrf
                 <div>
                     <x-forms.auth.input-label for="email">
-                        Your email
+                        Ваш email
                     </x-forms.auth.input-label>
 
                     <x-forms.auth.input-text
@@ -34,7 +34,7 @@
                 </div>
                 <div>
                     <x-forms.auth.input-label for="password">
-                        Your password
+                        Пароль
                     </x-forms.auth.input-label>
                     <x-forms.auth.input-text
                         type="password"
@@ -54,24 +54,24 @@
                             type="checkbox"
                             value=""
                         />
-                    </div>
-                    <div class="ml-3 text-sm">
-                        <x-forms.auth.input-label for="remember">
-                            Remember me
-                        </x-forms.auth.input-label>
+                        <div class="ml-3 text-sm">
+                            <x-forms.auth.input-label for="remember">
+                                Запам'ятати мене
+                            </x-forms.auth.input-label>
+                        </div>
                     </div>
 
                 </div>
 
                 <div class="flex items-center justify-center">
                     <x-forms.auth.submit-button type="submit">
-                        Login to your account
+                        Вхід
                     </x-forms.auth.submit-button>
                 </div>
 
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                    Not registered?
-                    <x-forms.auth.link href="{{route('sign-up')}}"> Create account</x-forms.auth.link>
+                    Не маєте акаунта?
+                    <x-forms.auth.link href="{{route('sign-up')}}"> Створити акаунт</x-forms.auth.link>
                 </div>
             </form>
         </div>

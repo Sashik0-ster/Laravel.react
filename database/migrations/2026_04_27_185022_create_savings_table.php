@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->date('saving_date');
             $table->text('description')->nullable();
             $table->decimal('interest_rate', 5, 2)->default(0);
-            $table->date('maturity_date');
+            $table->date('maturity_date')->nullable();
             $table->timestamps();
         });
     }

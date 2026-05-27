@@ -4,14 +4,14 @@
         <!-- Card -->
         <div class="w-full max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow dark:bg-gray-800">
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-                Create a New Account
+                Створити акаунт
             </h2>
             <form class="mt-8 space-y-6" action="{{route('registration')}}" method="POST">
                 @csrf
 
                 <div>
                     <x-forms.auth.input-label for="name">
-                        Your name
+                        Ваше ім'я
                     </x-forms.auth.input-label>
                     <x-forms.auth.input-text
                         type="name"
@@ -23,7 +23,7 @@
                 </div>
                 <div>
                     <x-forms.auth.input-label for="email">
-                        Your email
+                        Ваш email
                     </x-forms.auth.input-label>
                     <x-forms.auth.input-text
                         type="email"
@@ -35,7 +35,7 @@
                 </div>
                 <div>
                     <x-forms.auth.input-label for="password">
-                        Your password
+                        Пароль
                     </x-forms.auth.input-label>
                     <x-forms.auth.input-text
                         type="password"
@@ -47,7 +47,7 @@
                 </div>
                 <div>
                     <x-forms.auth.input-label for="password_confirmation">
-                        Confirm password
+                        Повторити пароль
                     </x-forms.auth.input-label>
                     <x-forms.auth.input-text
                         type="password"
@@ -66,30 +66,31 @@
                             type="checkbox"
                             required
                         />
+                        <div class="ml-3 text-sm">
+
+                            <x-forms.auth.input-label
+                                for="remember">
+                                Я приймаю
+                                <x-forms.auth.link href="#">
+                                    Умови використання
+                                </x-forms.auth.link>
+                            </x-forms.auth.input-label>
+                        </div>
 
                     </div>
-                    <div class="ml-3 text-sm">
 
-                        <x-forms.auth.input-label
-                            for="remember">
-                            I accept the
-                            <x-forms.auth.link href="#">
-                                Terms and Conditions
-                            </x-forms.auth.link>
-                        </x-forms.auth.input-label>
-                    </div>
                 </div>
 
                 <div class="flex items-center justify-center  ">
                     <x-forms.auth.submit-button class="bg-[#4FFFA4]" type="submit">
-                        Create account
+                        Створити акаунт
                     </x-forms.auth.submit-button>
                 </div>
 
                 <div class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                    Already have an account?
+                    Вже маєте акаунт?
                     <x-forms.auth.link href="{{route('login')}}">
-                        Login here
+                        Вхід
                     </x-forms.auth.link>
                 </div>
             </form>

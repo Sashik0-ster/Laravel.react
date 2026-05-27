@@ -24,8 +24,6 @@ class ExpenseRequest extends FormRequest
 
     public function rules(): array
     {
-//dd(request()->all());
-
 
         return [
             'amount' => ['required', 'numeric'],
@@ -36,7 +34,7 @@ class ExpenseRequest extends FormRequest
                     $query->where('user_id', auth()->id());
                 }),
             ],
-            'name_category' => ['nullable'],
+            'category_id' => ['required', 'exists:categories,category_id'],
             'description' => ['nullable', 'min:5', 'max:100'],
             'is_recurring' => ['nullable'],
             'expense_date' => ['date'],
@@ -47,11 +45,15 @@ class ExpenseRequest extends FormRequest
     {
         return [
             'amount.required' => 'Сума обов’язкова для заповнення.',
-            'expense_date.required' => 'Дата приходу є обов\’язковою.',
-            'expense_date.date' => 'Введіть коректну дату.',
             'accounts.required' => 'Оберіть Рахунок',
+            'currency.required' => 'Оберіть Валюту',
+            'currency.exists' => 'Валюта не існує',
+            'category_id.required' => 'Оберіть Категорію витрат',
+            'category_id.exists' => 'Категорія не існує',
             'description.min' => 'Опис має містити мінімум 5 символів.',
             'description.max' => 'Опис має містити максимум 100 символів.',
+            'expense_date.required' => 'Дата запису є обов\’язковою.',
+            'expense_date.date' => 'Введіть коректну дату.',
         ];
     }
 

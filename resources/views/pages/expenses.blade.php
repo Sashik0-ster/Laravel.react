@@ -1,13 +1,15 @@
 <x-layouts.app>
 
-    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Витрати</span>
-
-
-    @if(session('success'))
-        <x-messages.success/>
-    @elseif(session('error'))
-        <x-messages.not-success/>
-    @endif
+    <div class="flex flex-col mb-4">
+        <span
+            class="text-xl font-semibold my-2 sm:text-2xl whitespace-nowrap dark:text-white">Витрати
+            </span>
+        @if(session('success'))
+            <x-messages.success/>
+        @elseif(session('error'))
+            <x-messages.not-success/>
+        @endif
+    </div>
 
     <div class="items-center justify-between block sm:flex">
         <div class="flex items-center mb-4 sm:mb-0">
@@ -118,8 +120,8 @@
                     <x-forms.auth.error-message :messages="$errors->get('currency')" class="mt-2"/>
 
                     <div>
-                        <x-forms.auth.input-label for="name_category">Джерело витрат</x-forms.auth.input-label>
-                        <select name="name_category" id="name_category"
+                        <x-forms.auth.input-label for="category_id">Джерело витрат</x-forms.auth.input-label>
+                        <select name="category_id" id="category_id"
                                 class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="" selected disabled>Оберіть джерело витрат</option>
                             @foreach($categories as $category)
@@ -127,7 +129,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <x-forms.auth.error-message :messages="$errors->get('name_category')" class="mt-2"/>
+                    <x-forms.auth.error-message :messages="$errors->get('category_id')" class="mt-2"/>
 
                     <x-forms.auth.input-label
                         for="expense_date"
@@ -139,6 +141,7 @@
                         name="expense_date"
                         id="expense_date"
                     />
+                    <x-forms.auth.error-message :messages="$errors->get('expense_date')" class="mt-2"/>
 
                     <x-forms.auth.input-label
                         for="is_recurring">
@@ -210,7 +213,7 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Сумма доходу
+                                    Сумма витрат
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -218,7 +221,7 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Джерело доходу
+                                    Джерело витрат
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -230,7 +233,7 @@
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                                    Дата отримання
+                                    Дата витрат
                                 </th>
                                 <th scope="col"
                                     class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -302,27 +305,31 @@
                                                 aria-controls="drawer-update-product-default"
                                                 data-drawer-placement="right"
 
-                                                {{-- Передаємо всі необхідні дані в JS --}}
-{{--                                                data-action="{{ route('income.update', $income->income_id) }}"--}}
-{{--                                                data-amount="{{ $income->amount }}"--}}
-{{--                                                data-account="{{ $income->account_id }}"--}}
-{{--                                                data-currency="{{ $income->currency_id }}"--}}
-{{--                                                data-source="{{ $income->source_id ?? $income->income_source_id }}"--}}
-{{--                                                data-date="{{ $income->income_date }}"--}}
-{{--                                                data-recurring="{{ $income->is_recurring }}"--}}
-{{--                                                data-description="{{ $income->description }}"--}}
+                                                {{--Передаємо всі необхідні дані в JS --}}
+                                                data-action="{{ route('expense.update', $expense->expense_id) }}"
+                                                data-amount="{{ $expense->amount }}"
+                                                data-account="{{ $expense->account_id }}"
+                                                data-currency="{{ $expense->currency_id }}"
+                                                data-category="{{ $expense->category->category_id ?? $expense->category->name_category }}"
+                                                data-date="{{ $expense->expense_date }}"
+                                                data-recurring="{{ $expense->is_recurring }}"
+                                                data-description="{{ $expense->description }}"
                                         >
-                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-                                                <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path>
+                                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                                                <path fill-rule="evenodd"
+                                                      d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                                      clip-rule="evenodd"></path>
                                             </svg>
                                             Редагувати
                                         </button>
                                     </td>
                                     <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-delete hidden"
                                         id="rowSetting">
-                                        <button type="button" {{--id="delete-{{ $income->id }}"--}}
-                                                {{--data-action="/income/{{ $income->income_id }}"--}}
+                                        <button type="button" id="delete-{{ $expense->id }}"
+                                                data-action="/expense/{{ $expense->expense_id }}"
                                                 data-drawer-target="drawer-delete-product-default"
                                                 data-drawer-show="drawer-delete-product-default"
                                                 aria-controls="drawer-delete-product-default"
@@ -344,12 +351,15 @@
                         </table>
 
                         {{-- Drawer-menu --}}
-                        <x-forms.product-forms.del-item/>
+                        <x-forms.product-forms.del-item
+                            action="/expense/{{ $expense->expense_id ?? '#'}}"
+                        />
 
                         <x-forms.product-forms.update-item
                             :accounts="$accounts"
                             :currencies="$currencies"
-                            :sources="$expenses"
+                            :sources="$sources"
+                            :categories="$categories"
                         />
 
                     </div>
