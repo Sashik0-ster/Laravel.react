@@ -29,10 +29,24 @@
         <a href="#pricing" class="text-[13px] text-white/40 hover:text-white transition-colors tracking-wide">Тарифи</a>
         <a href="#blog" class="text-[13px] text-white/40 hover:text-white transition-colors tracking-wide">Блог</a>
     </div>
-    <a href="{{ route('registration') }}"
-       class="text-[13px] px-5 py-2 rounded-full border border-[#4FFFA4] text-[#4FFFA4] hover:bg-[#4FFFA4]/10 transition-colors tracking-wide">
-        Почати безкоштовно
-    </a>
+
+    <div
+        class="flex items-center justify-between text-[13px] px-5 py-2 rounded-full border border-[#4FFFA4] text-[#4FFFA4] hover:bg-[#4FFFA4]/10 transition-colors tracking-wide">
+        <svg class="w-5 h-5 mr-1 ml-3 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+        </svg>
+        <a href="{{route('login')}}"
+           class="dark:text-white hover:text-[#4FF555] transition-colors tracking-wide">Вхід</a>
+        <svg class="w-5 h-5 mr-1 ml-3 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+             xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+        </svg>
+        <a href="{{route('sign-up')}}"
+           class="dark:text-white hover:text-[#4FF555] transition-colors tracking-wide">Реєстрація</a>
+    </div>
 
 </nav>
 

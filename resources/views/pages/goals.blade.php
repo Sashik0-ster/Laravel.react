@@ -1,12 +1,15 @@
 <x-layouts.app>
-    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Goals</span>
+    <div class="flex flex-col mb-4">
+        <span
+            class="text-xl font-semibold my-2 sm:text-2xl whitespace-nowrap dark:text-white">Цілі
+            </span>
+        @if(session('success'))
+            <x-messages.success/>
+        @elseif(session('error'))
+            <x-messages.not-success/>
+        @endif
+    </div>
 
-    ---
-    title: Tailwind CSS Products Page - Flowbite
-    description: Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more
-    layout: dashboard
-    group: crud
-    ---
     <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
         <div class="w-full mb-1">
             <div class="mb-4">

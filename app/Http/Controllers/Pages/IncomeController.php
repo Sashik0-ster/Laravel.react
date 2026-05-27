@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Pages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Finances\IncomeRequest;
 use App\Models\Finance\Account;
+use App\Models\Finance\Category;
 use App\Models\Finance\Currency;
 use App\Models\Finance\Income;
 use App\Models\Finance\IncomeSource;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\TextUI\Configuration\Source;
 
 class IncomeController extends Controller
 {
@@ -21,8 +23,10 @@ class IncomeController extends Controller
         Income::with(['account', 'currency', 'source'])->get();
         $currencies = Currency::all();
         $accounts = Account::all();
+        $categories = Category::all();
+        $sources = IncomeSource::all();
 
-        return view('pages.incomes', compact('income_sources', 'incomes', 'currencies', 'accounts'));
+        return view('pages.incomes', compact('income_sources', 'incomes', 'currencies', 'accounts', 'categories', 'sources'));
     }
 
     public function store(IncomeRequest $request)

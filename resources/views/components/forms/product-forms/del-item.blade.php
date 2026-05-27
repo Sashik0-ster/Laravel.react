@@ -27,7 +27,7 @@
     <h3 class="mb-6 text-lg text-gray-500 dark:text-gray-400">Ви впевнені, що хочете видалити цей запис?</h3>
 
     <!-- Загортаємо кнопку в захищену форму -->
-    <form action="#" method="POST" class="inline" id="delete-income-form">
+    <form action="{{ $action }}" method="POST" class="inline" id="delete-income-form">
         @csrf
         @method('DELETE')
 

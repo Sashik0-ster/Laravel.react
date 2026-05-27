@@ -39,8 +39,11 @@ Route::post('/sign-in', [SignInController::class, 'signIn'])->name('login');*/
 
 // Головна сторінка
 Route::get('/', function () {
-    return view('pages.mainpage');
-})->name('home');
+    if (empty(request()->cookie('remember_token'))) {
+        return view('pages.mainpage');
+    }
+    return view('pages.Auth.sign-in');
+});
 
 // МАРШРУТИ ДЛЯ ГІСТЬ (Тільки для неавторизованих)
 Route::middleware('guest')->group(function () {
@@ -76,9 +79,10 @@ Route::middleware('auth')->group(function () {
 
     //Витрати
     Route::post('/expense', [ExpenseController::class, 'store'])->name('expense.create');
-    Route::put('/expense/{expense}', [IncomeController::class, 'update'])->name('expense.update');
-    Route::delete('/expense/{expense}', [IncomeController::class, 'destroy'])->name('expense.destroy');
+    Route::put('/expense/{expense}', [ExpenseController::class, 'update'])->name('expense.update');
+    Route::delete('/expense/{expense}', [ExpenseController::class, 'destroy'])->name('expense.destroy');
 
+    //Рахунки
     Route::post('/accounts', [AccountController::class, 'create'])->name('accounts.create');
 
     // Вихід (не забудьте додати метод logout у контролер)

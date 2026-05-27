@@ -60,12 +60,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 form.setAttribute('action', editBtn.getAttribute('data-action'));
 
-                setVal('input[name="amount"]',         editBtn.getAttribute('data-amount'));
-                setVal('input[name="income_date"]',    editBtn.getAttribute('data-date')?.split(' ')[0]);
+                setVal('input[name="amount"]', editBtn.getAttribute('data-amount'));
+                setVal('input[name="income_date"]', editBtn.getAttribute('data-date')?.split(' ')[0]);
+                setVal('input[name="expense_date"]', editBtn.getAttribute('data-date')?.split(' ')[0]);
                 setVal('textarea[name="description"]', editBtn.getAttribute('data-description'));
 
-                setSelect('accounts',       editBtn.getAttribute('data-account'));
-                setSelect('currency',       editBtn.getAttribute('data-currency'));
+                setSelect('category_id', editBtn.getAttribute('data-category'));
+                setSelect('accounts', editBtn.getAttribute('data-account'));
+                setSelect('currency', editBtn.getAttribute('data-currency'));
                 setSelect('income_sources', editBtn.getAttribute('data-source'));
 
                 const checkbox = form.querySelector('input[name="is_recurring"][type="checkbox"]');
@@ -73,7 +75,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     checkbox.checked = editBtn.getAttribute('data-recurring') == '1';
                 }
 
+
             }, 50);
+
+
         });
     }
 

@@ -67,27 +67,43 @@
             </div>
             <x-forms.auth.error-message :messages="$errors->get('currency')" class="mt-2"/>
 
-            <div>
-                <x-forms.auth.input-label for="income_sources">Джерело доходу</x-forms.auth.input-label>
-                <select name="income_sources" id="income_sources"
-                        class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option value="" selected disabled>Оберіть джерело доходу</option>
-                    @foreach($sources as $source)
-                        <option value="{{$source->source_id}}">{{$source->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <x-forms.auth.error-message :messages="$errors->get('income_sources')" class="mt-2"/>
+
+            @if(request()->routeIs('pages.income'))
+                <div>
+                    <x-forms.auth.input-label for="income_sources">Джерело доходу</x-forms.auth.input-label>
+                    <select name="income_sources" id="income_sources"
+                            class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option value="" selected disabled>Оберіть джерело доходу</option>
+                        @foreach($sources as $source)
+                            <option value="{{$source->source_id}}">{{$source->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <x-forms.auth.error-message :messages="$errors->get('income_sources')" class="mt-2"/>
+            @else
+                <div>
+                    <x-forms.auth.input-label for="category_id">Джерело витрат</x-forms.auth.input-label>
+                    <select name="category_id" id="category_id"
+                            class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option value="" selected disabled>Оберіть джерело витрат</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->category_id }}">{{ $category->name_category }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <x-forms.auth.error-message :messages="$errors->get('category_id')" class="mt-2"/>
+            @endif
+
 
             <x-forms.auth.input-label
-                for="income_date"
+                for="expense_date"
             >
                 Дата доходу
             </x-forms.auth.input-label>
             <x-forms.auth.input-text
                 type="date"
-                name="income_date"
-                id="income_date"
+                name="expense_date"
+                id="expense_date"
             />
 
             <x-forms.auth.input-label

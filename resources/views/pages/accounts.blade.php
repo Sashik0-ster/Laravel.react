@@ -1,15 +1,13 @@
 <x-layouts.app>
     <div class="flex flex-col mb-4">
         <span
-            class="self-center text-xl font-semibold my-2 sm:text-2xl whitespace-nowrap dark:text-white">Рахунки</span>
-
-        {{-- Перевірка наявності повідомлення у сесії --}}
+            class="text-xl font-semibold my-2 sm:text-2xl whitespace-nowrap dark:text-white">Рахунки
+            </span>
         @if(session('success'))
             <x-messages.success/>
         @elseif(session('error'))
             <x-messages.not-success/>
         @endif
-
     </div>
 
     <div class="items-center justify-between block sm:flex">
