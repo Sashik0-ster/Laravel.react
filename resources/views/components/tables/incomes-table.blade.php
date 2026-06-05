@@ -203,7 +203,7 @@
                                         data-amount="{{ $income->amount }}"
                                         data-account="{{ $income->account_id }}"
                                         data-currency="{{ $income->currency_id }}"
-                                        data-source="{{ $income->source->name ?? $income->income_source_id }}"
+                                        data-source="{{ $income->income_sources->name ?? $income->income_source_id }}"
                                         data-date="{{ $income->income_date }}"
                                         data-recurring="{{ $income->is_recurring }}"
                                         data-description="{{ $income->description }}">
