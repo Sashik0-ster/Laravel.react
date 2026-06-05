@@ -13,6 +13,7 @@ use App\Models\Finance\Income;
 use App\Models\Finance\IncomeSource;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\RedirectResponse;
+use function React\Promise\all;
 
 class ExpenseController extends Controller
 {
@@ -53,7 +54,7 @@ class ExpenseController extends Controller
 
     public function destroy(Expense $expense): RedirectResponse
     {
-
+//dd(request()->all());
         $expense->delete();
 
         return redirect()->back()->with('success', 'Запис видалено!');

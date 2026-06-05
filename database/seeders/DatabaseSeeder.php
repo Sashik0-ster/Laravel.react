@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Finance\Goal;
 use App\Models\Finance\Saving;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,11 +24,11 @@ class DatabaseSeeder extends Seeder
         );
 
         $this->call([
-            FinanceSeeder::class,
+            CurrencySeeder::class,
             IncomeSourceSeeder::class,
             CategorySeeder::class,
         ]);
-        Saving::factory()->count(5)->create([
+        Goal::factory()->count(10)->create([
             'user_id' => $user->id,
         ]);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\GoalsPriority;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +22,7 @@ return new class extends Migration {
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->date('deadline');
-            $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
+            $table->string('priority')->default(GoalsPriority::LOW->value);
             $table->enum('status', ['active', 'completed', 'archived'])->default('active');
             $table->timestamps();
         });

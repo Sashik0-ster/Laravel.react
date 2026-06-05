@@ -1,4 +1,4 @@
-    <nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 h-[59px]">
+<nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 h-[59px]">
     <div class="px-3 py-3 lg:px-5 lg:pl-5">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start">
@@ -125,14 +125,37 @@
                         </div>
                     </div>
                 @else
-                    <div class="flex items-center pl-2 lg:pl-2">
-                        <svg class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                  d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                        </svg>
-                        <a href="{{route('login')}}" class="dark:text-white">
-                            Вхід /<a href="{{route('sign-up')}}" class="dark:text-white">Реєстрація</a>
+                    <div class="flex items-center gap-1 pl-1">
+
+                        <a href="{{route('login')}}"
+                           class="flex items-center justify-center w-9 h-9 sm:w-auto sm:h-auto sm:px-1 sm:py-1.5
+                  rounded-lg text-gray-700 dark:text-gray-300
+                  hover:bg-gray-100 dark:hover:bg-gray-700
+                  transition-colors"
+                           title="Вхід">
+                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                            </svg>
+
+                            <span class="hidden sm:inline sm:ml-1.5 text-sm font-medium">Вхід</span>
+                        </a>
+
+                        <span class="hidden sm:inline text-gray-300 dark:text-gray-600">/</span>
+
+                        <a href="{{route('sign-up')}}"
+                           class="flex items-center justify-center w-9 h-9 sm:w-auto sm:h-auto sm:px-1 sm:py-1.5
+                              rounded-lg text-gray-700 dark:text-gray-300
+                              hover:bg-gray-100 dark:hover:bg-gray-700
+                              transition-colors"
+                           title="Реєстрація">
+
+                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                            </svg>
+
+                            <span class="hidden sm:inline sm:ml-1.5 text-sm font-medium">Реєстрація</span>
                         </a>
                     </div>
                 @endauth

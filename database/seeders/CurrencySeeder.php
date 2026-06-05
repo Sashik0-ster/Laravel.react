@@ -15,6 +15,8 @@ class CurrencySeeder extends Seeder
             ['code' => 'PLN', 'currency_name' => 'Polish Zloty', 'symbol' => 'zł', 'is_active' => true],
         ];
 
+        $currency = fake()->unique()->randomElement($currencies);
+
         foreach ($currencies as $currency) {
             Currency::firstOrCreate(
                 ['code' => $currency['code']],

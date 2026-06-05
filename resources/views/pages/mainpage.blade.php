@@ -17,7 +17,7 @@
 <body class="bg-[#0A0C10] text-white/90 font-sans antialiased overflow-x-hidden dark:bg-gray-900">
 
 {{-- NAV --}}
-<nav class="flex items-center justify-between px-10 py-5 border-b border-white/[0.07]">
+<nav class="flex items-center justify-between px-5 py-5 border-b border-white/[0.07]">
     <a href="{{route('pages.mainpage')}}" class="flex ml-2 md:mr-24">
         <img src="{{asset('assets/logo.svg')}}" class="h-8 mr-3 rounded rounded-3" alt="Logo"/>
         <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Sashik0</span>
@@ -31,15 +31,15 @@
     </div>
 
     <div
-        class="flex items-center justify-between text-[13px] px-5 py-2 rounded-full border border-[#4FFFA4] text-[#4FFFA4] hover:bg-[#4FFFA4]/10 transition-colors tracking-wide">
-        <svg class="w-5 h-5 mr-1 ml-3 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        class="flex items-center justify-between gap-1 text-[13px] px-5 py-2 rounded-full border border-[#4FFFA4] text-[#4FFFA4] hover:bg-[#4FFFA4]/10 transition-colors tracking-wide">
+        <svg class="w-5 h-5 " fill="none" stroke="currentColor" viewBox="0 0 24 24"
              xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
         </svg>
         <a href="{{route('login')}}"
            class="dark:text-white hover:text-[#4FF555] transition-colors tracking-wide">Вхід</a>
-        <svg class="w-5 h-5 mr-1 ml-3 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        <svg class="w-5 h-5 " fill="none" stroke="currentColor" viewBox="0 0 24 24"
              xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>

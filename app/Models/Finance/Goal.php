@@ -2,6 +2,7 @@
 
 namespace App\Models\Finance;
 
+use App\Enums\GoalsPriority;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +30,9 @@ class Goal extends Model
         'deadline' => 'date',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'priority' => GoalsPriority::class,
     ];
+
 
     public function user()
     {
@@ -41,12 +44,10 @@ class Goal extends Model
         return $this->belongsTo(Currency::class, 'currency_id');
     }
 
-    /**
-     * Додатковий метод для отримання відсотка виконання цілі.
-     */
-    public function getProgressPercentageAttribute()
+    public function getProgressPercentageAttribute(): float
     {
         if ($this->target_amount <= 0) return 0;
-        return round(($this->current_amount / $this->target_amount) * 100, 2);
+
+        return min(100, round(($this->current_amount / $this->target_amount) * 100, 2));
     }
 }

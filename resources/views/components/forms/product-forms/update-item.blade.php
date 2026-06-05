@@ -95,16 +95,25 @@
             @endif
 
 
-            <x-forms.auth.input-label
-                for="expense_date"
-            >
-                Дата доходу
-            </x-forms.auth.input-label>
-            <x-forms.auth.input-text
-                type="date"
-                name="expense_date"
-                id="expense_date"
-            />
+            @if(request()->routeIs('pages.income'))
+                <x-forms.auth.input-label for="income_date">
+                    Дата доходу
+                </x-forms.auth.input-label>
+                <x-forms.auth.input-text
+                    type="date"
+                    name="income_date"
+                    id="income_date"
+                />
+            @else
+                <x-forms.auth.input-label for="expense_date">
+                    Дата витрати
+                </x-forms.auth.input-label>
+                <x-forms.auth.input-text
+                    type="date"
+                    name="expense_date"
+                    id="expense_date"
+                />
+            @endif
 
             <x-forms.auth.input-label
                 for="is_recurring">
