@@ -24,7 +24,6 @@ class ExpenseRequest extends FormRequest
 
     public function rules(): array
     {
-
         return [
             'amount' => ['required', 'numeric'],
             'currency' => ['required', 'exists:currencies,currency_id'],
