@@ -1,58 +1,131 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 💸 Personal Finance Manager
+![Status](https://img.shields.io/badge/status-in%20development-yellow) ![Learning Project](https://img.shields.io/badge/type-learning%20project-blue)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A full-stack personal finance web application built with **Laravel**, **Blade**, and **Tailwind CSS** — tracking income, expenses, savings, and financial goals in one clean dark-mode interface.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📸 Screenshots
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Income tracking with slide-over form
+![Income list with edit drawer](screenshots/income-edit.png)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Goals dashboard
+![Goals with progress tracking](screenshots/goals.png)
 
-## Learning Laravel
+### Transaction history
+![Transaction list with status badges](screenshots/transactions.png)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Add new income record
+![Add income slide-over form](screenshots/income-add.png)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+> 💡 To add screenshots: create a `screenshots/` folder in the repo root and upload the images with the matching filenames above.
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## ✨ Features
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+- 📊 **Income tracking** — log income with account, currency, source, and recurrence type
+- 💸 **Expense tracking** — categorise and monitor all outgoing transactions
+- 🏦 **Account management** — support for multiple accounts (Monobank, Privat, PKO, etc.)
+- 💱 **Multi-currency** — USD, EUR, PLN, UAH supported out of the box
+- 🎯 **Goals** — set savings targets with active / completed / archived tabs and progress indicators
+- 🔐 **Authentication** — secure login and registration with per-user data isolation
+- ✏️ **Slide-over forms** — smooth add / edit drawers without leaving the current page
+- 🔍 **Search & filter** — find transactions quickly across all records
+- ✅ **Form validation** — server-side validation via Laravel FormRequest
+- 🌙 **Dark mode UI** — clean, modern dark interface built with Tailwind CSS
+- 🚀 **CI/CD pipeline** — automated deployment via GitHub Actions
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Backend | PHP · Laravel |
+| Frontend | Blade · Tailwind CSS · Vite |
+| Database | MySQL |
+| Auth | Laravel built-in Auth |
+| Deployment | GitHub Actions |
+| Version Control | Git |
+
+---
+
+## 🚀 Getting Started
+
+### Requirements
+
+- PHP >= 8.1
+- Composer
+- Node.js >= 18
+- MySQL
+
+### Installation
 
 ```bash
-composer require laravel/boost --dev
+# Clone the repository
+git clone https://github.com/Sashik0-ster/Laravel.react.git
+cd Laravel.react
 
-php artisan boost:install
+# Install PHP dependencies
+composer install
+
+# Install JS dependencies
+npm install
+
+# Set up environment
+cp .env.example .env
+php artisan key:generate
+
+# Configure your database credentials in .env, then run:
+php artisan migrate --seed
+
+# Build frontend assets
+npm run build
+
+# Start local development server
+php artisan serve
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Open `http://localhost:8000` in your browser.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 📁 Project Structure
 
-## Code of Conduct
+```
+app/
+├── Http/
+│   ├── Controllers/     # Business logic — Income, Expense, Goals, Accounts
+│   └── Requests/        # FormRequest validation rules
+├── Models/              # Eloquent ORM — Transaction, Account, Goal, Category
+database/
+├── migrations/          # Schema definitions
+└── seeders/             # Sample data for development
+resources/
+└── views/               # Blade templates + Tailwind components
+.github/
+└── workflows/           # GitHub Actions CI/CD pipeline
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🔒 Security
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- All routes protected by Laravel's auth middleware
+- Per-user data isolation — users can only access their own records
+- CSRF protection on all forms
+- Input sanitisation via FormRequest validation classes
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📄 License
+
+This project is open-source under the [MIT License](LICENSE).
+
+---
+
+> 🎓 **Learning project** — built to practise full-stack Laravel development hands-on: database design, multi-currency data modelling, Blade component architecture, and automated deployment pipelines.
+>
+> 🚧 **Work in progress** — the app is actively being developed. New features, refactors, and improvements are added regularly as skills grow.
