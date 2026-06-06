@@ -19,8 +19,6 @@ A full-stack personal finance web application built with **Laravel**, **Blade**,
 ### Add new income record
 ![Add income slide-over form](screenshots/income-add.png)
 
-> 💡 To add screenshots: create a `screenshots/` folder in the repo root and upload the images with the matching filenames above.
-
 ---
 
 ## ✨ Features
