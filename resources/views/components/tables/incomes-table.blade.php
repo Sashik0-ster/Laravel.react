@@ -80,14 +80,14 @@
         @endforeach
     </div>
 
-    <x-forms.product-forms.del-item action="/income/{{ $income->income_id}}"/>
-    <x-forms.product-forms.update-item
-        :incomes="$incomes"
-        :accounts="$accounts"
-        :currencies="$currencies"
-        :sources="$sources"
-        :categories="$categories"
-    />
+    <x-forms.product-forms.del-item action="#"/>
+<x-forms.product-forms.update-item
+    :incomes="$incomes"
+    :accounts="$accounts"
+    :currencies="$currencies"
+    :sources="$sources"
+    :categories="$categories"
+/>
 
 
     <div class="hidden md:block overflow-x-auto rounded-lg">
@@ -243,16 +243,13 @@
                 </table>
 
                 {{-- Drawer-menu --}}
-                <x-forms.product-forms.del-item
-                    action="/income/{{ $income->income_id ?? '#' }}"
-                />
-
-                <x-forms.product-forms.update-item
-                    :accounts="$accounts"
-                    :currencies="$currencies"
-                    :sources="$sources"
-                    :categories="$categories"
-                />
+               <x-forms.product-forms.del-item action="#"/>
+<x-forms.product-forms.update-item
+    :accounts="$accounts"
+    :currencies="$currencies"
+    :sources="$sources"
+    :categories="$categories"
+/>
 
             </div>
         </div>
