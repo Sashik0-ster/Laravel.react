@@ -163,17 +163,4 @@
 
         </tbody>
     </table>
-
-    {{-- Drawer-menu --}}
-    <x-forms.product-forms.del-item
-        action="/goal/{{ $goal->goal_id ?? '#' }}"
-    />
-
-    <x-forms.product-forms.update-item
-        :accounts="$accounts"
-        :currencies="$currencies"
-        :sources="$sources"
-        :categories="$categories"
-        :goal="$goals"
-    />
 </div>
