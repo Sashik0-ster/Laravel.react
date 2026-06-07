@@ -89,7 +89,6 @@
         :categories="$categories"
     />
 
-
     <div class="hidden md:block overflow-x-auto rounded-lg">
         <div class="inline-block min-w-full align-middle">
             <div class="overflow-hidden shadow sm:rounded-lg">
