@@ -18,7 +18,7 @@ class IncomeController extends Controller
 {
     public function index()
     {
-        $income_sources = IncomeSource::all();
+//        $income_sources = IncomeSource::all();
         $incomes = Income::where('user_id', auth()->id())->get();
         Income::with(['account', 'currency', 'source'])->get();
         $currencies = Currency::all();
@@ -26,7 +26,7 @@ class IncomeController extends Controller
         $categories = Category::all();
         $sources = IncomeSource::all();
 
-        return view('pages.incomes', compact('income_sources', 'incomes', 'currencies', 'accounts', 'categories', 'sources'));
+        return view('pages.incomes', compact( 'incomes', 'currencies', 'accounts', 'categories', 'sources'));
     }
 
     public function store(IncomeRequest $request)

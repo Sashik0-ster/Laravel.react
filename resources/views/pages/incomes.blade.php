@@ -123,8 +123,8 @@
                         <select name="income_sources" id="income_sources"
                                 class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="" selected disabled>Оберіть джерело доходу</option>
-                            @foreach($income_sources as $income_source)
-                                <option value="{{$income_source->income_source_id}}">{{$income->source->name}}</option>
+                            @foreach($sources as $source)
+                                <option value="{{$source->source_id}}">{{$source->name}}</option>
                             @endforeach
                         </select>
                     </div>
