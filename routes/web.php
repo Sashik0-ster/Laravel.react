@@ -82,6 +82,11 @@ Route::middleware('auth')->group(function () {
     Route::put('/expense/{expense}', [ExpenseController::class, 'update'])->name('expense.update');
     Route::delete('/expense/{expense}', [ExpenseController::class, 'destroy'])->name('expense.destroy');
 
+    //Цілі
+    Route::post('/goal', [GoalController::class, 'store'])->name('goal.create');
+    Route::put('/goal/{goal}', [GoalController::class, 'update'])->name('goal.update');
+//    Route::delete('/goal/{goal}', [GoalController::class, 'destroy'])->name('goal.destroy');
+
     //Рахунки
     Route::post('/accounts', [AccountController::class, 'create'])->name('accounts.create');
 

@@ -1,3 +1,5 @@
+@props(['goals', 'accounts', 'currencies', 'sources', 'categories'])
+
 <div class="hidden md:block overflow-x-auto border-t border-gray-500">
     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
         <thead class="bg-gray-50 dark:bg-gray-700">
@@ -115,24 +117,25 @@
                             aria-controls="drawer-update-product-default"
                             data-drawer-placement="right"
 
-                    {{-- Передаємо всі необхідні дані в JS --}}
-                    {{--data-action="{{ route('income.update', $income->income_id) }}"
-                    data-amount="{{ $income->amount }}"
-                    data-account="{{ $income->account_id }}"
-                    data-currency="{{ $income->currency_id }}"
-                    data-source="{{ $income->source_id ?? $income->income_source_id }}"
-                    data-date="{{ $income->income_date }}"
-                    data-recurring="{{ $income->is_recurring }}"
-                    data-description="{{ $income->description }}">--}}
-                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-                        <path fill-rule="evenodd"
-                              d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                              clip-rule="evenodd"></path>
-                    </svg>
-                    Редагувати
+                            {{-- Передаємо всі необхідні дані в JS --}}
+                            {{--                    data-action="{{ route('goal.update', $goal->income_id) }}"--}}
+                            data-type="goal"
+                            data-amount="{{ $goal->amount }}"
+                            data-account="{{ $goal->account_id }}"
+                            data-currency="{{ $goal->currency_id }}"
+                            data-source="{{ $goal->source_id ?? $goal->income_source_id }}"
+                            data-date="{{ $goal->income_date }}"
+                            data-recurring="{{ $goal->is_recurring }}"
+                            data-description="{{ $goal->description }}">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
+                            <path fill-rule="evenodd"
+                                  d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                  clip-rule="evenodd"></path>
+                        </svg>
+                        Редагувати
                     </button>
                 </td>
                 <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-delete hidden"
@@ -160,4 +163,17 @@
 
         </tbody>
     </table>
+
+    {{-- Drawer-menu --}}
+    <x-forms.product-forms.del-item
+        action="/goal/{{ $goal->goal_id ?? '#' }}"
+    />
+
+    <x-forms.product-forms.update-item
+        :accounts="$accounts"
+        :currencies="$currencies"
+        :sources="$sources"
+        :categories="$categories"
+        :goal="$goals"
+    />
 </div>
