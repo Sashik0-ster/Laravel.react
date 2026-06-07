@@ -7,14 +7,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CategoryFactory extends Factory
 {
-    public function definition(): array
-    {
-        $types = [
-            'regular' => 'Регулярний',
-            'no_regular' => 'Не регулярний',
-        ];
 
-        $expenseNames = [
+        public function definition(): array
+{
+    return [
+        'user_id' => User::factory(),
+        'name_category' => $this->faker->randomElement([
             'Оренда офісу',
             'Комунальні послуги',
             'Інтернет та звʼязок',
@@ -23,12 +21,9 @@ class CategoryFactory extends Factory
             'Транспортні витрати',
             'Канцелярія',
             'Податки',
-        ];
+        ]),
+        'type' => $this->faker->randomElement(['regular', 'no_regular']),
+    ];
 
-        return [
-            'user_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
-            'name_category'    => $this->faker->randomElement($expenseNames),
-            'type' => $this->faker->randomElement(array_keys($types)),
-        ];
     }
 }
