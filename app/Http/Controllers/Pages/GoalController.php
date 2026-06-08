@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Finances\GoalRequest;
 use App\Models\Finance\Account;
 use App\Models\Finance\Category;
 use App\Models\Finance\Currency;
@@ -24,8 +25,21 @@ class GoalController extends Controller
         return view('pages.goals', compact('goals', 'currencies', 'accounts', 'categories', 'sources'));
     }
 
-    public function store(Request $request)
+    public function store(GoalRequest $request)
     {
+//        dd($request->all());
+        $data = $request->validated();
+
+        Goal::create([
+            'user_id' => auth()->id(),
+            'goal_name' => $data['goal_name'],
+            'target_amount' => $data['target_amount'],
+            'current_amount' => $data['current_amount'],
+            'currency_id' => $data['currency'],
+            'deadline' => $data['deadline'],
+            'priority' => $data['priority'],
+            'status' => 'active',
+        ]);
 
         return redirect()->route('pages.goal')->with('success', 'Ціль створена.');
 

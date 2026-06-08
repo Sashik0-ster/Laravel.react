@@ -12,22 +12,23 @@ use App\Models\Finance\IncomeSource;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use PHPUnit\TextUI\Configuration\Source;
 
 class IncomeController extends Controller
 {
     public function index()
-{
-    $incomes = Income::with(['account', 'currency', 'source'])
-        ->where('user_id', auth()->id())
-        ->get();
-    $currencies = Currency::all();
-    $accounts = Account::where('user_id', auth()->id())->get();
-    $categories = Category::all();
-    $sources = IncomeSource::all();
+    {
+        $incomes = Income::with(['account', 'currency', 'source'])
+            ->where('user_id', auth()->id())
+            ->get();
+        $currencies = Currency::all();
+        $accounts = Account::where('user_id', auth()->id())->get();
+        $categories = Category::all();
+        $sources = IncomeSource::all();
 
-    return view('pages.incomes', compact('incomes', 'currencies', 'accounts', 'categories', 'sources'));
-}
+        return view('pages.incomes', compact(
+            'incomes', 'currencies', 'accounts', 'categories', 'sources'
+        ));
+    }
 
     public function store(IncomeRequest $request)
     {
@@ -64,13 +65,13 @@ class IncomeController extends Controller
     public function update(IncomeRequest $request, Income $income)
     {
         $income->update([
-            'amount'       => $request->amount,
-            'account_id'   => $request->accounts,
-            'currency_id'  => $request->currency,
-            'source_id'    => $request->income_sources,
-            'income_date'  => $request->income_date,
+            'amount' => $request->amount,
+            'account_id' => $request->accounts,
+            'currency_id' => $request->currency,
+            'source_id' => $request->income_sources,
+            'income_date' => $request->income_date,
             'is_recurring' => $request->is_recurring == 1,
-            'description'  => $request->description,
+            'description' => $request->description,
         ]);
 
         return redirect()->back()->with('success', 'Запис оновлено');

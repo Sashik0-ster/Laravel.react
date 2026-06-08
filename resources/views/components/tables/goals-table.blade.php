@@ -14,15 +14,15 @@
             </th>
             <th scope="col"
                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                Сумма цілі
+                Цільова сума
             </th>
             <th scope="col"
                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                Зібрано
+                Зібрана сума
             </th>
             <th scope="col"
                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                Приорітет
+                Пріорітет цілі
             </th>
             <th scope="col"
                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
@@ -30,7 +30,7 @@
             </th>
             <th scope="col"
                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                Дата закінчення
+                Дедлайн (Кінцева дата)
             </th>
             <th scope="col"
                 class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white row-actions-cell-update hidden">
@@ -60,7 +60,7 @@
                              style="width: {{ $progress }}%">
                         </div>
                     </div>
-                    <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">
+                    <span class=" mr-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
                         {{ $progress }}%
                     </span>
                 </td>
@@ -102,20 +102,25 @@
                 </td>
 
                 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                    {{ $goal->deadline->format('d.m.Y') }}
+                    {{ $goal->created_at->format('d.m.Y') }}
                 </td>
 
                 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                    {{ $goal->created_at->format('d.m.Y') }}
+                    {{ $goal->deadline->format('d.m.Y') }}
                 </td>
+
                 <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-update hidden"
                     id="rowSetting">
                     <button type="button"
-                            class="btn-edit-trigger inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                            @disabled($goal->status->isDisabled())
+                            @if(!$goal->status->isDisabled())
                             data-drawer-target="drawer-update-product-default"
                             data-drawer-show="drawer-update-product-default"
                             aria-controls="drawer-update-product-default"
                             data-drawer-placement="right"
+                            @endif
+                            class="btn-edit-trigger inline-flex items-center px-3 py-2 text-sm font-medium text-center rounded-lg focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-800 transition-colors gap-2 {{ $goal->status->color() }}"
+
 
                             {{-- Передаємо всі необхідні дані в JS --}}
                             {{--                    data-action="{{ route('goal.update', $goal->income_id) }}"--}}
@@ -129,15 +134,12 @@
                             data-description="{{ $goal->description }}">
                         <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
                              xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path>
-                            <path fill-rule="evenodd"
-                                  d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                                  clip-rule="evenodd"></path>
+                            {!! $goal->status->iconSvgPath()!!}
                         </svg>
-                        Редагувати
+                        {{$goal->status->label()}}
                     </button>
                 </td>
+
                 <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-delete hidden"
                     id="rowSetting">
                     <div class="flex gap-2 row-actions-cell-delete hidden">
@@ -164,3 +166,4 @@
         </tbody>
     </table>
 </div>
+
