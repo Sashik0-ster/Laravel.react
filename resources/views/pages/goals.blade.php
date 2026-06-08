@@ -236,77 +236,114 @@
                 <div class="relative max-h-screen pb-25">
 
                     <x-forms.auth.input-label
-                        for="amount"
+                        for="goal_name"
                     >
-                        Сума
+                        Назва цілі
+                    </x-forms.auth.input-label>
+                    <x-forms.auth.input-text
+                        type="text"
+                        name="goal_name"
+                        id="goal_name"
+                    />
+                    <x-forms.auth.error-message :messages="$errors->get('goal_name')" class="mt-2"/>
+
+                    <x-forms.auth.input-label
+                        for="target_amount"
+                    >
+                        Цільова сума
                     </x-forms.auth.input-label>
                     <x-forms.auth.input-text
                         type="number"
-                        name="amount"
-                        id="amount"
+                        name="target_amount"
+                        id="target_amount"
                     />
-                    <x-forms.auth.error-message :messages="$errors->get('amount')" class="mt-2"/>
+                    <x-forms.auth.error-message :messages="$errors->get('target_amount')" class="mt-2"/>
 
-                    <div>
-                        <x-forms.auth.input-label for="accounts">Рахунок</x-forms.auth.input-label>
-                        <select name="accounts" id="accounts"
-                                class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="" selected disabled>Оберіть рахунок</option>
-                            @foreach($accounts as $account)
-                                <option value="{{ $account->account_id }}">{{ $account->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <x-forms.auth.error-message :messages="$errors->get('accounts')" class="mt-2"/>
+                    <x-forms.auth.input-label
+                        for="current_amount"
+                    >
+                        Зібрана сума
+                    </x-forms.auth.input-label>
+                    <x-forms.auth.input-text
+                        type="number"
+                        name="current_amount"
+                        id="current_amount"
+                        value="0"
+                    />
+                    <x-forms.auth.error-message :messages="$errors->get('current_amount')" class="mt-2"/>
 
                     <div>
                         <x-forms.auth.input-label for="currency">Валюта</x-forms.auth.input-label>
                         <select name="currency" id="currency"
                                 class="mt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                            <option value="" selected disabled>виберіть валюту</option>
+                            <option value="0" selected disabled>виберіть валюту</option>
                             @foreach($currencies as $currency)
-                                <option value="{{ $currency->currency_id }}">
-                                    {{ $currency->code }}
+                                <option value="{{ $currency->currency_id }}" {{ old('currency') == $currency->currency_id ? 'selected' : '' }}>                                    {{ $currency->code }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
                     <x-forms.auth.error-message :messages="$errors->get('currency')" class="mt-2"/>
 
-
                     <x-forms.auth.input-label
-                        for="income_date"
+                        for="deadline"
                     >
-                        Дата доходу
+                        Дедлайн (Кінцева дата)
                     </x-forms.auth.input-label>
                     <x-forms.auth.input-text
                         type="date"
-                        name="income_date"
-                        id="income_date"
+                        name="deadline"
+                        id="deadline"
                     />
+                    <x-forms.auth.error-message :messages="$errors->get('deadline')" class="mt-2"/>
 
                     <x-forms.auth.input-label
-                        for="is_recurring">
-                        <input type="hidden" name="is_recurring" value="0">
+                        for="priority">
+                        Пріорітет цілі
+                    </x-forms.auth.input-label>
+                    <div class="items-center mb-1 block sm:flex">
+
                         <x-forms.auth.input-checkbox
-                            type="checkbox"
-                            name="is_recurring"
-                            id="is_recurring"
-                            value="1"
+                            class="mr-1 ml-1"
+                            type="radio"
+                            name="priority"
+                            id="priority_low"
+                            value="low"
+                            :checked="old('priority') === 'low'"
                         />
-                        Регулярний платіж
-                    </x-forms.auth.input-label>
+                        <x-forms.auth.input-label
+                            for="low">
+                            Низький
+                        </x-forms.auth.input-label>
 
-                    <x-forms.auth.input-label
-                        for="description"
-                    >
-                        Опис
-                    </x-forms.auth.input-label>
-                    <textarea name="description" id="description" cols="30" rows="3"
-                              class="bg-gray-50 border border-gray-300 text-gray-900
-                            sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5
-                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    ></textarea>
+                        <x-forms.auth.input-checkbox
+                            class="mr-1 ml-5"
+                            type="radio"
+                            name="priority"
+                            id="priority_medium"
+                            value="medium"
+                            :checked="old('priority') === 'medium'"
+                        />
+                        <x-forms.auth.input-label
+                            for="medium">
+                            Середній
+                        </x-forms.auth.input-label>
+
+                        <x-forms.auth.input-checkbox
+                            class="mr-1 ml-5"
+                            type="radio"
+                            name="priority"
+                            id="priority_high"
+                            value="high"
+                            :checked="old('priority') === 'high'"
+                        />
+                        <x-forms.auth.input-label
+                            for="high">
+                            Високий
+                        </x-forms.auth.input-label>
+                    </div>
+                    <x-forms.auth.error-message :messages="$errors->get('priority')" class="mt-2"/>
+
                 </div>
 
                 <div

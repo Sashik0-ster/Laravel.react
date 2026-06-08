@@ -3,6 +3,7 @@
 namespace App\Models\Finance;
 
 use App\Enums\GoalsPriority;
+use App\Enums\GoalsStatus;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -31,6 +32,7 @@ class Goal extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'priority' => GoalsPriority::class,
+        'status' => GoalsStatus::class,
     ];
 
 
