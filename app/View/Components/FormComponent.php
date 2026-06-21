@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\View\Component;
 
 class FormComponent extends Component
@@ -14,6 +15,7 @@ class FormComponent extends Component
     public function __construct(public string $type = '', public string $method = '', public string $action = '')
     {
         $this->method = strtoupper($method);
+        $this->type = Model::class;
     }
 
     /**
