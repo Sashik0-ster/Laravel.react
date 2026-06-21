@@ -10,31 +10,23 @@ use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-
     public function index()
     {
         $currencies = Currency::all();
         $accounts = Account::where('user_id', auth()->id())->get();
+        $accounts_cards = Account::where('user_id', auth()->id())->paginate('4');
 
-        return view('pages.accounts', compact('currencies', 'accounts'));
+        return view('pages.accounts', compact('currencies', 'accounts', 'accounts_cards'));
     }
 
     public function create(AccountRequest $request)
     {
-
         $data = $request->validated();
 
-        $exists = Account::where([
-            ['user_id', '=', auth()->id()],
-            ['name', '=', $data['name']],
-            ['currency_id', '=', $data['currency']]
-        ])->exists();
-
+        $exists = Account::where([['user_id', '=', auth()->id()], ['name', '=', $data['name']], ['currency_id', '=', $data['currency']]])->exists();
 
         if ($exists) {
-            return redirect()
-                ->route('pages.accounts')
-                ->with('error', 'Рахунок вже існує!');
+            return redirect()->route('pages.accounts')->with('error', 'Рахунок вже існує!');
         }
 
         Account::create([
@@ -45,15 +37,8 @@ class AccountController extends Controller
             'type' => $data['type'],
         ]);
 
-        return redirect()
-            ->route('pages.accounts')
-            ->with('success', 'Рахунок успішно додано!');
+        return redirect()->route('pages.accounts')->with('success', 'Рахунок успішно додано!');
     }
 
-
-    public function destroy(Account $account)
-    {
-    }
-
-
+    public function destroy(Account $account) {}
 }
