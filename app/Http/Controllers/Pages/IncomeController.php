@@ -19,22 +19,17 @@ class IncomeController extends Controller
     {
         $incomes = Income::with(['account', 'currency', 'source'])
             ->where('user_id', auth()->id())
-            ->get();
+            ->paginate(5);
         $currencies = Currency::all();
         $accounts = Account::where('user_id', auth()->id())->get();
         $categories = Category::all();
         $sources = IncomeSource::all();
 
-        return view('pages.incomes', compact(
-            'incomes', 'currencies', 'accounts', 'categories', 'sources'
-        ));
+        return view('pages.incomes', compact('incomes', 'currencies', 'accounts', 'categories', 'sources'));
     }
 
     public function store(IncomeRequest $request)
     {
-
-//        dd($request->all());
-//
         $data = $request->validated();
         $isRecurring = $request->boolean('is_recurring') ? 1 : 2;
 
@@ -49,10 +44,7 @@ class IncomeController extends Controller
             'income_date' => $data['income_date'],
         ]);
 
-
-        return redirect()
-            ->route('pages.income')
-            ->with('success', 'Дохід створено!');
+        return redirect()->route('pages.income')->with('success', 'Дохід створено!');
     }
 
     public function destroy(Income $income): RedirectResponse
@@ -76,5 +68,4 @@ class IncomeController extends Controller
 
         return redirect()->back()->with('success', 'Запис оновлено');
     }
-
 }
