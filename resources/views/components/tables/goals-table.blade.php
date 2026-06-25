@@ -3,167 +3,142 @@
 <div class="hidden md:block overflow-x-auto border-t border-gray-500">
     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
         <thead class="bg-gray-50 dark:bg-gray-700">
-        <tr>
-            <th scope="col"
-                class="p-2 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                №
-            </th>
-            <th scope="col"
-                class="p-2 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white w-100">
-                Назва
-            </th>
-            <th scope="col"
-                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                Цільова сума
-            </th>
-            <th scope="col"
-                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                Зібрана сума
-            </th>
-            <th scope="col"
-                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                Пріорітет цілі
-            </th>
-            <th scope="col"
-                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                Дата створення
-            </th>
-            <th scope="col"
-                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
-                Дедлайн (Кінцева дата)
-            </th>
-            <th scope="col"
-                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white row-actions-cell-update hidden">
-                Редагувати
-            </th>
-            <th scope="col"
-                class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white row-actions-cell-delete hidden">
-                Видалити
-            </th>
-        </tr>
+            <tr>
+                <th scope="col"
+                    class="p-2 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                    №
+                </th>
+                <th scope="col"
+                    class="p-2 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white w-100">
+                    Назва
+                </th>
+                <th scope="col"
+                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                    Цільова сума
+                </th>
+                <th scope="col"
+                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                    Зібрана сума
+                </th>
+                <th scope="col"
+                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                    Пріорітет цілі
+                </th>
+                <th scope="col"
+                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                    Дата створення
+                </th>
+                <th scope="col"
+                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white">
+                    Дедлайн (Кінцева дата)
+                </th>
+                <th scope="col"
+                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white row-actions-cell-update hidden">
+                    Редагувати
+                </th>
+                <th scope="col"
+                    class="p-4 text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white row-actions-cell-delete hidden">
+                    Видалити
+                </th>
+            </tr>
         </thead>
         <tbody class="bg-white dark:bg-gray-800">
 
-        @foreach($goals as $goal)
-            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+            @foreach ($goals as $goal)
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
 
-                <td class="p-2 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ $loop->iteration }}
-                </td>
+                    <td class="p-2 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ $loop->iteration }}
+                    </td>
 
-                <td class="p-2 text-sm font-bold text-gray-900 dark:text-white w-70">
-                    {{ $goal->goal_name }}
-                    @php $progress = $goal->progress_percentage; @endphp
+                    <td class="p-2 text-sm font-bold text-gray-900 dark:text-white w-70">
+                        {{ $goal->goal_name }}
+                        @php $progress = $goal->progress_percentage; @endphp
 
-                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-600 mt-2">
-                        <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500"
-                             style="width: {{ $progress }}%">
+                        <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-600 mt-2">
+                            <div class="bg-primary-600 h-2.5 rounded-full dark:bg-primary-500"
+                                style="width: {{ $progress }}%">
+                            </div>
                         </div>
-                    </div>
-                    <span class=" mr-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
-                        {{ $progress }}%
-                    </span>
-                </td>
+                        <span class=" mr-2 text-xs font-semibold text-gray-500 dark:text-gray-400">
+                            {{ $progress }}%
+                        </span>
+                    </td>
 
-                <td class="p-4 text-sm font-bold text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ number_format($goal->target_amount, 2, '.', ' ') }}
-                    @php
-
-                        $color = $goal->currency->getCodeColor($goal->currency->code);
-                    @endphp
-
-                    <span
-                        class="bg-[{{ $color }}] text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-{{ $color }} dark:text-[#312C3A]">
-                      {{ $goal->currency->code }}
-                    </span>
-
-                </td>
+                    <td class="p-4 text-sm font-bold text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ number_format($goal->target_amount, 2, '.', ' ') }}
+                        <span style="background-color: {{ $goal->currency->code->getCodeColor() }}"
+                            class="text-xs font-medium px-2.5 py-0.5 rounded dark:text-[#312C3A]">
+                            {{ $goal->currency->code->value }}
+                        </span>
+                    </td>
 
 
-                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
-                    {{$goal->current_amount}}
-                    @php
+                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-white">
+                        {{ number_format($goal->current_amount, 2, '.', ' ') }}
+                        <span style="background-color: {{ $goal->currency->code->getCodeColor() }}"
+                            class="text-xs font-medium px-2.5 py-0.5 rounded dark:text-[#312C3A]">
+                            {{ $goal->currency->code->value }}
+                        </span>
+                    </td>
 
-                        $color = $goal->currency->getCodeColor($goal->currency->code);
-                    @endphp
+                    <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-black">
+                        <span
+                            class="bg-[{{ $goal->priority->color() }}] text-blue-800 text-xs font-medium px-2.5 py-1 rounded dark:bg-{{ $goal->priority->color() }} dark:text-white">
+                            {{ $goal->priority->label() }}
+                        </span>
 
-                    <span
-                        class="bg-[{{ $color }}] text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-{{ $color }} dark:text-[#312C3A]">
-                      {{ $goal->currency->code }}
-                    </span>
-                </td>
+                    </td>
 
-                <td class="p-4 text-sm font-normal text-gray-900 whitespace-nowrap dark:text-black">
-                    <span
-                        class="bg-[{{ $goal->priority->color() }}] text-blue-800 text-xs font-medium px-2.5 py-1 rounded dark:bg-{{ $goal->priority->color() }} dark:text-white">
-                        {{ $goal->priority->label() }}
-                    </span>
+                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        {{ $goal->created_at->format('d.m.Y') }}
+                    </td>
 
-                </td>
+                    <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        {{ $goal->deadline->format('d.m.Y') }}
+                    </td>
 
-                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                    {{ $goal->created_at->format('d.m.Y') }}
-                </td>
-
-                <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                    {{ $goal->deadline->format('d.m.Y') }}
-                </td>
-
-                <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-update hidden"
-                    id="rowSetting">
-                    <button type="button"
-                            @disabled($goal->status->isDisabled())
-                            @if(!$goal->status->isDisabled())
-                            data-drawer-target="drawer-update-product-default"
+                    <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-update hidden" id="rowSetting">
+                        <button type="button" @disabled($goal->status->isDisabled())
+                            @if (!$goal->status->isDisabled()) data-drawer-target="drawer-update-product-default"
                             data-drawer-show="drawer-update-product-default"
                             aria-controls="drawer-update-product-default"
-                            data-drawer-placement="right"
-                            @endif
+                            data-drawer-placement="right" @endif
                             class="btn-edit-trigger inline-flex items-center px-3 py-2 text-sm font-medium text-center rounded-lg focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-800 transition-colors gap-2 {{ $goal->status->color() }}"
-
-
-                            {{-- Передаємо всі необхідні дані в JS --}}
-                            {{--                    data-action="{{ route('goal.update', $goal->income_id) }}"--}}
-                            data-type="goal"
-                            data-amount="{{ $goal->amount }}"
-                            data-account="{{ $goal->account_id }}"
+                            {{-- Передаємо всі необхідні дані в JS --}} {{--                    data-action="{{ route('goal.update', $goal->income_id) }}" --}} data-type="goal"
+                            data-amount="{{ $goal->amount }}" data-account="{{ $goal->account_id }}"
                             data-currency="{{ $goal->currency_id }}"
                             data-source="{{ $goal->source_id ?? $goal->income_source_id }}"
-                            data-date="{{ $goal->income_date }}"
-                            data-recurring="{{ $goal->is_recurring }}"
+                            data-date="{{ $goal->income_date }}" data-recurring="{{ $goal->is_recurring }}"
                             data-description="{{ $goal->description }}">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
-                             xmlns="http://www.w3.org/2000/svg">
-                            {!! $goal->status->iconSvgPath()!!}
-                        </svg>
-                        {{$goal->status->label()}}
-                    </button>
-                </td>
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                {!! $goal->status->iconSvgPath() !!}
+                            </svg>
+                            {{ $goal->status->label() }}
+                        </button>
+                    </td>
 
-                <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-delete hidden"
-                    id="rowSetting">
-                    <div class="flex gap-2 row-actions-cell-delete hidden">
-                        <button type="button"
-                                id="delete-{{ $goal->goal_id }}"
+                    <td class="p-4 space-x-2 whitespace-nowrap row-actions-cell-delete hidden" id="rowSetting">
+                        <div class="flex gap-2 row-actions-cell-delete hidden">
+                            <button type="button" id="delete-{{ $goal->goal_id }}"
                                 data-action="/goals/{{ $goal->goal_id }}"
                                 data-drawer-target="drawer-delete-product-default"
                                 data-drawer-show="drawer-delete-product-default"
-                                aria-controls="drawer-delete-product-default"
-                                data-drawer-placement="right"
+                                aria-controls="drawer-delete-product-default" data-drawer-placement="right"
                                 class="btn-delete-trigger flex-1 inline-flex justify-center items-center px-3 py-2 text-sm font-medium text-white bg-red-700 rounded-lg hover:bg-red-800">
-                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                      d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                      clip-rule="evenodd"></path>
-                            </svg>
-                            Видалити
-                        </button>
-                    </div>
-                </td>
-            </tr>
-        @endforeach
+                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                Видалити
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
 
         </tbody>
     </table>
 </div>
-

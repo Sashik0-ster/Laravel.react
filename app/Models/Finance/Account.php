@@ -4,6 +4,7 @@ namespace App\Models\Finance;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Models\User;
 
 class Account extends Model
 {
@@ -11,13 +12,7 @@ class Account extends Model
 
     protected $primaryKey = 'account_id';
 
-    protected $fillable = [
-        'user_id',
-        'name',
-        'balance',
-        'currency_id',
-        'type',
-    ];
+    protected $fillable = ['user_id', 'name', 'balance', 'currency_id', 'type'];
 
     protected $casts = [
         'balance' => 'decimal:2',
@@ -44,5 +39,4 @@ class Account extends Model
     {
         return $this->hasMany(Expense::class);
     }
-
 }

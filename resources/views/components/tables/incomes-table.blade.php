@@ -4,8 +4,6 @@
 {{-- Мобільні картки --}}
 <div class="block md:hidden space-y-4">
     @foreach ($incomes as $income)
-        @php $color = $income->currency->getCodeColor($income->currency->code); @endphp
-
         <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 space-y-2">
 
             <div class="flex justify-between items-center">
@@ -16,9 +14,9 @@
             <div class="flex justify-between items-center">
                 <span class="text-sm font-bold text-gray-900 dark:text-white">
                     {{ number_format($income->amount, 2, '.', ' ') }}
-                    <span
-                        class="bg-[{{ $color }}] text-blue-800 text-xs px-1.5 py-0.5 rounded dark:text-[#312C3A]">
-                        {{ $income->currency->code }}
+                    <span style="background-color: {{ $income->currency->code->getCodeColor() }}"
+                        class="text-xs px-1.5 py-0.5 rounded dark:text-[#312C3A]">
+                        {{ $income->currency->code->value }}
                     </span>
                 </span>
                 <span class="text-xs text-gray-500 dark:text-gray-400">{{ $income->account->name }}</span>
@@ -139,14 +137,9 @@
                             </td>
 
                             <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                @php
-
-                                    $color = $income->currency->getCodeColor($income->currency->code);
-                                @endphp
-
-                                <span
-                                    class="bg-[{{ $color }}] text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-{{ $color }} dark:text-[#312C3A]">
-                                    {{ $income->currency->code }}
+                                <span style="background-color: {{ $income->currency->code->getCodeColor() }}"
+                                    class="text-xs font-medium px-2.5 py-0.5 rounded dark:text-[#312C3A]">
+                                    {{ $income->currency->code->value }}
                                 </span>
                             </td>
 

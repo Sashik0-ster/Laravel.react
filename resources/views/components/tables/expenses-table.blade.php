@@ -5,7 +5,6 @@
     {{-- Мобільні картки --}}
     <div class="block md:hidden space-y-4">
         @foreach ($expenses as $expense)
-            @php $color = $expense->currency->getCodeColor($expense->currency->code); @endphp
             <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 space-y-2">
 
                 <div class="flex justify-between items-center">
@@ -17,9 +16,9 @@
                 <div class="flex justify-between items-center">
                     <span class="text-sm font-bold text-gray-900 dark:text-white">
                         {{ number_format($expense->amount, 2, '.', ' ') }}
-                        <span
-                            class="bg-[{{ $color }}] text-blue-800 text-xs px-1.5 py-0.5 rounded dark:text-[#312C3A]">
-                            {{ $expense->currency->code }}
+                        <span style="background-color: {{ $expense->currency->code->getCodeColor() }}"
+                            class="text-xs px-1.5 py-0.5 rounded dark:text-[#312C3A]">
+                            {{ $expense->currency->code->value }}
                         </span>
                     </span>
                     <span class="text-xs text-gray-500 dark:text-gray-400">{{ $expense->account->name }}</span>
@@ -129,7 +128,6 @@
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800">
                         @foreach ($expenses as $expense)
-                            @php $color = $expense->currency->getCodeColor($expense->currency->code); @endphp
                             <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
 
                                 <td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
@@ -142,9 +140,9 @@
                                     {{ number_format($expense->amount, 2, '.', ' ') }}</td>
 
                                 <td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                    <span
-                                        class="bg-[{{ $color }}] text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-{{ $color }} dark:text-[#312C3A]">
-                                        {{ $expense->currency->code }}
+                                    <span style="background-color: {{ $expense->currency->code->getCodeColor() }}"
+                                        class="text-xs font-medium px-2.5 py-0.5 rounded dark:text-[#312C3A]">
+                                        {{ $expense->currency->code->value }}
                                     </span>
                                 </td>
 
